@@ -1,0 +1,23 @@
+<!-- Cartes des joueurs -->
+<div class="player-cards">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let player of filteredPlayers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
+      <!-- Carte du joueur -->
+      <div class="player-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ player.name }}</h5>
+          <p class="card-text">Age: {{ player.age }}</p>
+          <p class="card-text">Niveau: {{ player.level }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+  <ul class="pagination-list">
+    <!-- Pagination ici -->
+  </ul>
+</div>
+
