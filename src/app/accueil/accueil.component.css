@@ -1,0 +1,58 @@
+/* Menu horizontal */
+.navbar-nav .nav-link { color: #fff; }
+.navbar-nav .nav-link:hover { color: #009688; }
+
+/************************* barre de navigation *************************/
+.navbar {
+  background-color: hwb(0 100% 0% / 0.137);
+}
+
+.navbar-nav .nav-link.active { color: #03998a; }
+
+/* Section accueil */
+.accueil-image {
+  position: relative;
+  padding-top: 1rem;
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(to bottom, rgba(4,9,30,0.7),rgb(41 73 79 / 38%)),
+  url(/assets/images/DALL·E\ 2024-03-29\ 10.25.19\ -\ Imagine\ a\ vibrant\ and\ attractive\ tennis-themed\ background\ that\ could\ serve\ as\ the\ perfect\ backdrop\ for\ a\ sports\ application\ interface.\ This\ image\ shou.webp);
+  background-position: center;
+  background-size: cover;
+}
+
+.content {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+}
+
+.accueil-texte { color: #eee; margin-bottom: 40px; }
+
+.accueil-titre {
+  text-shadow: 2px 2px 4px #000000;
+  line-height: 1.2;
+  margin: 20px 0px 20px;
+}
+
+.accueil-description { font-size: 1.1rem; }
+
+.highlight { color: #a2240e; }
+
+/* Gestion des boutons */
+.btn-mise-en-oeuvre {
+  border-radius: 0.4rem;
+  background-color: #132953;
+  color: #eee;
+}
+
+.btn-mise-en-oeuvre:hover {
+  background-color: #009688;
+  color: #eee;
+}
+
+.bouge { margin-top: 150px; }
