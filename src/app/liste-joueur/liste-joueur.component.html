@@ -1,23 +1,54 @@
-<!-- Cartes des joueurs -->
-<div class="player-cards">
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let player of filteredPlayers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
-      <!-- Carte du joueur -->
-      <div class="player-card">
-        <div class="card-body">
-          <h5 class="card-title">{{ player.name }}</h5>
-          <p class="card-text">Age: {{ player.age }}</p>
-          <p class="card-text">Niveau: {{ player.level }}</p>
+<div class="container">
+  <br>
+  <h1 class="h1-custom texte-couleur-bleu">Les Joueurs</h1>
+  <br>
+  <div class="alert alert-primary" role="alert">
+    <div class="message-information">
+        <i class="bi bi-info-circle bi-info-circle-custom"></i>
+        Liste de l'ensemble des Joueurs inscrit au tournois de Ping Pong.
+    </div>
+  </div>
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchTerm" (keyup)="filterJoueurs()" placeholder="Rechercher un joueur ...">
+    <button class="search-button" (click)="filterJoueurs()">
+      <i class="bi bi-search bi-search-custom"></i> <span class="hide">Rechercher</span>
+    </button>
+  </div>
+  </div>
+  <div class="container">
+    <div class="row sm-justify-content-center">
+      <!-- Utilisation de ngFor pour itérer sur les joueurs filtrés et afficher leurs cartes -->
+      <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let joueur of filteredJoueurs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
+        <div class="card card-custom">
+          <div class="card-body card-body-custom">
+            <h1 class="card-title card-title-custom">{{ joueur.nom | uppercase}}</h1>
+            <h2 class="card-title card-title-second">{{ joueur.prenom | titlecase}}</h2>
+            <p class="card-text">Age : {{ joueur.age }}</p>
+            <p class="card-text">Sexe :
+              <!-- Utilisation de ngIf pour afficher "h" si le sexe est "homme" -->
+              <span *ngIf="joueur.sexe === 'H'">Homme</span>
+              <!-- Sinon, afficher "f" si le sexe est "femme" -->
+              <span *ngIf="joueur.sexe === 'F'">Femme</span>
+            </p>
+            <p class="card-text">Classement mondial: {{ joueur.classement }}</p>
+            <p class="card-text">
+              <span class="fi fi-{{joueur.countryCode | lowercase}} fis"></span> {{ joueur.pays }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="paginator">
+      <span>Nombre</span>
+      <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange(itemsPerPage)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+      </select>
+
+      <span>{{ startItemIndex }} - {{ endItemIndex }} of {{ totalItems }}</span>
+      <button (click)="onPrevPage()" [disabled]="currentPage === 1">Prev</button>
+      <button (click)="onNextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
   </div>
-</div>
-
-<!-- Pagination -->
-<div class="pagination">
-  <ul class="pagination-list">
-    <!-- Pagination ici -->
-  </ul>
-</div>
-

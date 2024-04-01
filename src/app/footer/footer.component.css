@@ -1,4 +1,24 @@
 .footer {
-  background-color: #343a40;
-  color: white;
+  background-color: #2C5367;
+  color: #fff;
+}
+
+.footer-heading {
+  color: #92B9CD; /* Couleur pour les titres des sections */
+  margin-bottom: 15px; /* Espacement en dessous des titres */
+}
+
+.footer-links a {
+  color: #fff; /* Couleur des liens */
+  text-decoration: none; /* Supprime le soulignement */
+}
+
+.footer-links a:hover {
+  color: #92B9CD; /* Couleur au survol */
+  text-decoration: underline; /* Souligne les liens au survol */
+}
+
+.list-unstyled {
+  padding-left: 0; /* Supprime le padding par défaut des listes */
+  list-style-type: none; /* Supprime les puces des listes */
 }

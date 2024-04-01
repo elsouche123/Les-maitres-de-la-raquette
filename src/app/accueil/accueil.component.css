@@ -7,10 +7,10 @@
   background-color: hwb(0 100% 0% / 0.137);
 }
 
-.navbar-nav .nav-link.active { 
+.navbar-nav .nav-link.active {
   color: #eee;
 }
-.navbar-nav:hover .nav-link.active:hover { 
+.navbar-nav:hover .nav-link.active:hover {
   color: #92B9CD;
   border-bottom: 1px solid  #92B9CD;
 }

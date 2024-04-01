@@ -7,6 +7,10 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListeJoueurComponent } from './liste-joueur/liste-joueur.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { InscriptionComponent } from './inscription/inscription.component';
+import { PlanDuSiteComponent } from './plan-du-site/plan-du-site.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +18,15 @@ import { ListeJoueurComponent } from './liste-joueur/liste-joueur.component';
     AccueilComponent,
     HeaderComponent,
     FooterComponent,
-    ListeJoueurComponent
+    ListeJoueurComponent,
+    InscriptionComponent,
+    PlanDuSiteComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

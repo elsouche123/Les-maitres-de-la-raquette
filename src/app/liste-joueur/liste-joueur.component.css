@@ -2,29 +2,123 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #F4F7F6; /* Couleur de fond plus douce pour le confort visuel */
 }
 
+/* Style pour la barre de recherche */
 .search-bar {
-  padding: 20px;
+  display: flex;
+  justify-content: left;
+  margin: 20px 0; /* Ajoute de l'espace au-dessus et en dessous de la barre de recherche */
+  padding: 10px;
 }
 
+.search-bar input[type="text"] {
+  width: 100%; /* Permet à la barre de recherche de s'étendre */
+  max-width: 400px; /* Largeur maximale pour éviter que la barre ne soit trop longue sur les grands écrans */
+  padding: 10px;
+  border-radius: 5px 0 0 5px; /* Arrondit les coins gauche */
+  border: 2px solid #92B9CD; /* Utilise une couleur de votre thème pour la bordure */
+  outline: none; /* Supprime l'outline lors de la sélection */
+}
+
+.search-button {
+  padding: 10px 15px;
+  border-radius: 0 5px 5px 0; /* Arrondit les coins droit */
+  border: 2px solid #92B9CD; /* Harmonise la bordure avec la barre de recherche */
+  background-color: #2C5367; /* Couleur de fond plus foncée pour un meilleur contraste */
+  color: white; /* Texte blanc pour le contraste */
+  cursor: pointer; /* Change le curseur en pointeur */
+  outline: none; /* Supprime l'outline lors de la sélection */
+}
+
+.search-button:hover {
+  background-color: #1B3B4F; /* Couleur plus foncée au survol */
+}
+
+/* Cartes des joueurs */
 .player-cards {
   flex-grow: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap; /* Permet aux cartes de passer à la ligne suivante si nécessaire */
+  justify-content: center; /* Centre les cartes horizontalement */
+  gap: 20px; /* Espacement entre les cartes */
   padding: 20px;
 }
 
-.player-card {
-  width: 250px; /* Ajustez la largeur des cartes selon vos préférences */
-  height: 250px; /* Ajustez la hauteur des cartes selon vos préférences */
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin: 10px;
+.card-custom {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Ombre subtile pour une apparence en élévation */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition douce pour le survol */
+  margin-bottom: 1rem; /* Espace ajouté en bas de chaque carte */
+  margin-left: 0.5rem; /* Espace ajouté à gauche de chaque carte */
+  margin-right: 0.5rem; /* Espace ajouté à droite de chaque carte */
+  box-shadow: 2px 2px 2px #222; /* Ombre de la carte pour l'effet de profondeur */
 }
 
-.pagination {
-  text-align: center;
-  margin-bottom: 20px;
+.card-custom:hover {
+  transform: translateY(-5px); /* Légère élévation au survol */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Ombre plus prononcée au survol */
+}
+
+.card-body-custom {
+  background-color: #ECF0F4; /* Couleur de fond des cartes pour un contraste doux */
+  padding: 15px; /* Espace intérieur des cartes */
+}
+
+.card-title-custom, .card-title-second {
+  margin-bottom: 15px; /* Espacement sous les titres */
+  color: #2C5367; /* Couleur des titres pour correspondre à votre thème */
+  font-size: 1rem; /* Réduisez la taille de la police ici */
+}
+
+/* Pagination */
+.paginator {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #ECF0F4; /* Fond de la pagination pour le distinguer */
+  justify-content: flex-end;
+}
+
+.paginator select {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  padding: 5px 10px; /* Plus d'espace intérieur pour faciliter la sélection */
+  border-radius: 5px; /* Bords arrondis */
+  border: 2px solid #92B9CD; /* Bordure de couleur de thème */
+}
+
+.paginator button {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid #92B9CD; /* Bordure de couleur de thème */
+  background-color: #2C5367; /* Couleur de fond pour correspondre à votre thème */
+  color: white; /* Texte blanc pour le contraste */
+}
+
+.paginator button[disabled] {
+  background-color: #BCCED9; /* Couleur plus claire pour les boutons désactivés */
+  cursor: not-allowed;
+}
+
+.paginator button:hover:not([disabled]) {
+  background-color: #1B3B4F; /* Couleur plus foncée au survol */
+}
+
+.bi-search-custom {
+  font-size: 1.2rem;
+  color: #fff;
+  padding-right: 0.2rem;
+}
+
+@media (max-width: 575.98px) {
+  .sm-justify-content-center {
+    display: flex;
+    justify-content: center;
+  }
+  .hide{
+    display: none;
+  }
 }
