@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { PlanDuSiteComponent } from './plan-du-site/plan-du-site.component';
+import { ContributeursComponent } from './contributeurs/contributeurs.component';
+import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
+import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-personnelles.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { PlanDuSiteComponent } from './plan-du-site/plan-du-site.component';
     FooterComponent,
     ListeJoueurComponent,
     InscriptionComponent,
-    PlanDuSiteComponent
+    PlanDuSiteComponent,
+    ContributeursComponent,
+    MentionsLegalesComponent,
+    DonneesPersonnellesComponent
   ],
   imports: [
     BrowserModule,

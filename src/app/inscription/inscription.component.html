@@ -1,41 +1,133 @@
-<form (ngSubmit)="onSubmit(form)" #form="ngForm" class="container mt-5">
-  <div class="mb-3">
-    <label for="nom" class="form-label">Nom</label>
-    <input type="text" class="form-control" id="nom" name="nom" ngModel required>
-  </div>
-
-  <div class="mb-3">
-    <label for="prenom" class="form-label">Prénom</label>
-    <input type="text" class="form-control" id="prenom" name="prenom" ngModel required>
-  </div>
-
-  <div class="mb-3">
-    <label for="dateNaissance" class="form-label">Date de Naissance</label>
-    <input type="date" class="form-control" id="dateNaissance" name="dateNaissance" ngModel required>
-  </div>
-
-  <div class="mb-3">
-    <label class="form-label">Sexe</label>
-    <div>
-      <input type="radio" id="sexeF" name="sexe" value="F" ngModel required>
-      <label for="sexeF">Femme</label>
-      <input type="radio" id="sexeM" name="sexe" value="M" ngModel required>
-      <label for="sexeM">Homme</label>
+<div class="container">
+  <br>
+  <h1 class="h1-custom texte-couleur-bleu">Inscription au Tournoi de Ping-Pong</h1>
+  <br>
+  <div class="alert alert-primary" role="alert">
+    <div class="message-information">
+        <i class="bi bi-info-circle bi-info-circle-custom" aria-hidden="true"></i>
+        Souhaitez-vous participer à notre tournoi de ping-pong ?<strong>&nbsp;Inscrivez-vous dès maintenant !</strong>
     </div>
   </div>
 
-  <div class="mb-3">
-    <label for="classementMondial" class="form-label">Classement Mondial</label>
-    <input type="number" class="form-control" id="classementMondial" name="classementMondial" ngModel required>
-  </div>
+  <div class="container mt-3">
+    <form #inscriptionForm="ngForm" (ngSubmit)="onSubmit(inscriptionForm)" novalidate>
+      <div class="note-obligatoire">
+        <p>Les champs marqués d'un <span class="required-asterisk">*</span> sont obligatoires.</p>
+      </div>
+      
+      <fieldset class="card mb-4 p-4">
+        <legend class="card-header mb-3 fw-bold">Mes Informations Personnelles</legend>
+        <div class="card-body">
+          <div class="row g-3">
+            <!-- Genre -->
+            <div class="col-md-4">
+              <label for="genre" class="form-label">Genre <span class="required-asterisk">*</span></label>
+              <select class="form-select" id="genre" name="genre" [(ngModel)]="inscriptionModel.genre" required>
+                <option value="">Choisir...</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+  
+            <!-- Nom -->
+            <div class="col-md-4">
+              <label for="nom" class="form-label">Nom <span class="required-asterisk">*</span></label>
+              <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="inscriptionModel.nom" placeholder="Votre nom" required>
+            </div>
+  
+            <!-- Prénom -->
+            <div class="col-md-4">
+              <label for="prenom" class="form-label">Prénom <span class="required-asterisk">*</span></label>
+              <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="inscriptionModel.prenom" placeholder="Votre prénom" required>
+            </div>
+          </div>
+  
+          <!-- Date de Naissance -->
+          <div class="row g-3 mt-3">
+            <div class="col-md-6">
+              <label for="dateNaissance" class="form-label">Date de Naissance <span class="required-asterisk">*</span></label>
+              <input type="date" class="form-control" id="dateNaissance" name="dateNaissance" [(ngModel)]="inscriptionModel.dateNaissance" required>
+            </div>
+          </div>
+        </div>
+      </fieldset>
 
-  <div class="mb-3">
-    <label for="preferenceJeu" class="form-label">Préférence de Jeu</label>
-    <select class="form-select" id="preferenceJeu" name="preferenceJeu" ngModel required>
-      <option value="1v1">1v1</option>
-      <option value="2v2">2v2</option>
-    </select>
-  </div>
+      <fieldset class="card mb-4 p-4">
+        <legend class="card-header mb-3 fw-bold">Mes Coordonnées</legend>
+        <div class="card-body">
+          <!-- Adresse -->
+          <div class="mb-3">
+            <label for="adresse" class="form-label fw-bold">Adresse <span class="required-asterisk">*</span></label>
+            <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="inscriptionModel.adresse" placeholder="Votre adresse" required>
+          </div>
 
-  <button type="submit" class="btn btn-primary">Inscrire</button>
-</form>
+          <!-- Code Postal, Ville, Pays -->
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="codePostale" class="form-label fw-bold">Code Postal <span class="required-asterisk">*</span></label>
+              <input type="number" class="form-control" id="codePostale" name="codePostale" [(ngModel)]="inscriptionModel.codePostale" placeholder="Code Postal" required>
+            </div>
+            <div class="col-md-4">
+              <label for="ville" class="form-label fw-bold">Ville <span class="required-asterisk">*</span></label>
+              <input type="text" class="form-control" id="ville" name="ville" [(ngModel)]="inscriptionModel.ville" placeholder="Ville" required>
+            </div>
+            <div class="col-md-4">
+              <label for="pays" class="form-label fw-bold">Pays <span class="required-asterisk">*</span></label>
+              <input type="text" class="form-control" id="pays" name="pays" [(ngModel)]="inscriptionModel.pays" placeholder="Pays" required>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="card mb-4 p-4">
+        <legend class="card-header mb-3 fw-bold">Mon statut sportif</legend>
+        <div class="card-body">
+          <!-- Licence & Classement -->
+          <div class="mb-3">
+            <label for="licence" class="form-label fw-bold">Licence <span class="required-asterisk">*</span></label>
+            <select class="form-select" id="licence" name="licence" [(ngModel)]="inscriptionModel.licence" required>
+              <option value="">Choisir...</option>
+              <option value="Amateur">Amateur</option>
+              <option value="Pro">Pro</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="classement" class="form-label fw-bold">Classement <span class="required-asterisk">*</span></label>
+            <input type="number" class="form-control" id="classement" name="classement" [(ngModel)]="inscriptionModel.classement" placeholder="non classé" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="card mb-4 p-4">
+        <legend class="card-header mb-3 fw-bold">Confirmation <span class="required-asterisk">*</span></legend>
+        <div class="card-body">
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="validationDesInformations" name="confirmation" [(ngModel)]="inscriptionModel.confirmation" required>
+            <label class="form-check-label fw-bold" for="validationDesInformations">
+              Je reconnais que toutes les informations déclarées sont correctes.
+            </label>
+          </div>
+        </div>
+      </div>
+       <!-- Message de succès -->
+      <div *ngIf="messageSucces" class="alert alert-success">
+        {{ messageSucces }}
+      </div>
+
+      <!-- Message d'erreur pour un utilisateur déjà inscrit -->
+      <div *ngIf="estDejaInscrit" class="alert alert-warning">
+        {{ messageErreur }}
+      </div>
+
+      <!-- Autre message d'erreur -->
+      <div *ngIf="messageErreur && !estDejaInscrit" class="alert alert-danger">
+        {{ messageErreur }}
+      </div>
+
+
+      <button type="submit" class="btn btn-submit">Soumettre</button>
+    </form>
+  </div>
+</div>

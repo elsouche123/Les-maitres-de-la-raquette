@@ -4,12 +4,20 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { ListeJoueurComponent } from './liste-joueur/liste-joueur.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { PlanDuSiteComponent } from './plan-du-site/plan-du-site.component';
+import { ContributeursComponent } from './contributeurs/contributeurs.component';
+import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-personnelles.component';
+import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
+
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
   { path: 'liste-joueur', component: ListeJoueurComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'plan-du-site', component: PlanDuSiteComponent },
+  { path: 'contributeurs', component: ContributeursComponent },
+  { path: 'donnees-personnelles', component: DonneesPersonnellesComponent},
+  { path: 'mentions-legales', component: MentionsLegalesComponent},
+
 ];
 
 @NgModule({

@@ -1,20 +1,25 @@
 .footer {
   background-color: #2C5367;
   color: #fff;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 0.1rem;
+  
 }
 
-.footer-heading {
-  color: #92B9CD; /* Couleur pour les titres des sections */
-  margin-bottom: 15px; /* Espacement en dessous des titres */
+.footer-heading{
+  color: #eee; /* Couleur pour les titres des sections */
+  font-size: 1.2rem;
 }
 
-.footer-links a {
-  color: #fff; /* Couleur des liens */
-  text-decoration: none; /* Supprime le soulignement */
+.footer-heading-a {
+  text-decoration: none;
 }
 
-.footer-links a:hover {
-  color: #92B9CD; /* Couleur au survol */
+.footer-heading:hover {
+  color: #fff; /* Couleur au survol */
   text-decoration: underline; /* Souligne les liens au survol */
 }
 

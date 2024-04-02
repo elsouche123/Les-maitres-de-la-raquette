@@ -4,46 +4,33 @@
     <div class="row">
       <!-- Plan du site -->
       <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
-          <a href="/plan-du-site">Plan du site</a>
+          <a class="footer-heading-a" href="/plan-du-site">
+            <span class="footer-heading">Plan du site</span>
+          </a>
       </div>
 
       <!-- Contribueurs -->
       <div class="col-md-6 col-lg-3">
-        <h5 class="footer-heading">Contribueurs</h5>
-        <ul class="list-unstyled">
-          <li>Elsa Hadjadj</li>
-          <li>Quentin Bouetel</li>
-          <li>Rabab Boulkriat</li>
-        </ul>
+        <a class="footer-heading-a" href="/contributeurs">
+          <span class="footer-heading">Contribueurs</span>
+        </a>
       </div>
 
       <!-- RGPD -->
       <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
-        <h5 class="footer-heading">RGPD</h5>
-        <ul class="list-unstyled">
-          <li><a href="/politique-de-confidentialite">Politique de Confidentialité</a></li>
-          <li><a href="/gestion-des-cookies">Gestion des Cookies</a></li>
-          <li><a href="/mentions-legales">Mentions Légales</a></li>
-        </ul>
+        <a class="footer-heading-a" href="/mentions-legales">
+          <span class="footer-heading">Mentions Légales</span>
+        </a>
       </div>
 
-      <!-- Nous contacter -->
-      <div class="col-md-6 col-lg-3">
-        <h5 class="footer-heading">Nous Contacter</h5>
-        <ul class="list-unstyled">
-          <li><a href="mailto:contact@pingpongpassion.com">E-mail :</a></li>
-          <li>Suivez-nous sur les réseaux sociaux</li>
-          <li>
-            <a href="#" class="footer-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="footer-icon"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="footer-icon"><i class="fab fa-instagram"></i></a>
-          </li>
-        </ul>
+      <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
+        <a class="footer-heading-a" href="/donnees-personnelles">
+          <span class="footer-heading">Données Personnelles</span>
+        </a>
       </div>
     </div>
-
     <div class="text-center mt-4">
-      <span>© 2024 Ping-Pong Passion. Tous droits réservés.</span>
+      <span>© {{ dateDebut }}<span *ngIf="condition">-{{ dateCourante }}</span> Les Maitres de la Raquette. Tous droits réservés.</span>
     </div>
   </div>
 </footer>
