@@ -14,6 +14,7 @@ import { PlanDuSiteComponent } from './plan-du-site/plan-du-site.component';
 import { ContributeursComponent } from './contributeurs/contributeurs.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-personnelles.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-per
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

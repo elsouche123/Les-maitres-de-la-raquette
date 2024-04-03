@@ -5,5 +5,6 @@ export interface Joueur {
   genre: string;
   classement: number;
   pays: string;
+  licence: string;
   countryCode?: string;
 }

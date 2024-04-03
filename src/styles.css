@@ -1,3 +1,5 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 /* You can add global styles to this file, and also import other style files */
 h1-custom {
   font-size: 1.5rem;
@@ -19,4 +21,3 @@ h1-custom {
   color: cornflowerblue;
   padding-right: 0.8rem;
 }
-

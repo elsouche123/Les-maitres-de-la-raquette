@@ -2,6 +2,13 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Inscription } from '../models/inscription.models';
 import { InscriptionService } from '../services/inscription.service';
+import { HttpClient } from '@angular/common/http';
+import { Pays } from '../models/pays.models';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+
+
+
 
 @Component({
   selector: 'app-inscription',
@@ -12,23 +19,31 @@ export class InscriptionComponent {
   messageSucces: string = '';
   messageErreur: string = '';
   estDejaInscrit: boolean = false;
+  paysListe: Pays[] = [];
+  filtrePays = new Subject<string>();
   inscriptionModel: Inscription = {
     resultat: '',
     genre: '',
     nom: '',
     prenom: '',
     dateNaissance: null,
-    age: null, // Age sera calculé, donc initialisé à null
+    age: null, // L'âge sera calculé, donc initialisé à null
+    courriel: '',
+    telephone: '',
     adresse: '',
     codePostale: null,
     ville: '',
     pays: '',
+    numeroInscription: '', // Assurez-vous que ce champ est conforme à votre logique côté serveur
     licence: '',
     classement: null,
     confirmation: false
   };
 
-  constructor(private inscriptionService: InscriptionService) { }
+  constructor(private inscriptionService: InscriptionService, private http: HttpClient) { 
+    this.chargerPays();
+    this.initialiserFiltrePays();
+  }
 
   onSubmit(inscriptionForm: NgForm) {
     if (inscriptionForm.valid) {
@@ -38,7 +53,7 @@ export class InscriptionComponent {
       this.inscriptionService.soumettreInscription(this.inscriptionModel).subscribe(
         response => {
           console.log('Inscription réussie', response);
-          // Vous pouvez adapter la logique ici en fonction de la réponse de votre API
+          // Adaptation de la logique en fonction de la réponse de l'API
           if (response.resultat === 'Joueur ajouté avec succès') {
             this.messageSucces = `Bravo ${this.inscriptionModel.prenom}, tu es inscrit!`;
             this.messageErreur = '';
@@ -48,7 +63,7 @@ export class InscriptionComponent {
             this.messageSucces = '';
             this.estDejaInscrit = true;
           }
-          // Vous pouvez ici réinitialiser le formulaire ou rediriger l'utilisateur
+          // Réinitialisation du formulaire ou redirection de l'utilisateur
           inscriptionForm.reset();
         },
         error => {
@@ -57,6 +72,27 @@ export class InscriptionComponent {
       );
     }
   }
+
+  initialiserFiltrePays() {
+    this.filtrePays.pipe(
+      debounceTime(200), // Attendre pour les frappes de touche
+      distinctUntilChanged(), // Ignorer si la recherche est la même que la dernière
+      map(terme => terme ? this.recherchePays(terme) : this.paysListe.slice())
+    ).subscribe(paysFiltres => {
+      this.paysListe = paysFiltres;
+    });
+  }
+
+  recherchePays(terme: string): Pays[] {
+    return this.paysListe.filter(pays => pays.nom.toLowerCase().indexOf(terme.toLowerCase()) > -1);
+  }
+
+  chargerPays() {
+    this.http.get<{countries: {[key: string]: string}}>('assets/data/pays.json').subscribe(data => {
+      this.paysListe = Object.entries(data.countries).map(([code, nom]) => ({code, nom}));
+    });
+  }
+  
 
   private calculerAge(dateNaissance: Date): number {
     const aujourdHui = new Date();

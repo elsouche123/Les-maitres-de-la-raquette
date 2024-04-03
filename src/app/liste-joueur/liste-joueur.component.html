@@ -39,7 +39,9 @@
         <span *ngIf="joueur.genre === 'F' || joueur.genre === 'Femme'">Femme</span>
         <span *ngIf="joueur.genre === 'Autre'">Autre</span>
       </p>
-      
+      <p class="card-text">
+        Licence : {{joueur.licence | titlecase}}
+      </p>
       <p class="card-text">
         Classement :
         <span *ngIf="joueur.classement; else nonClasse">{{ joueur.classement }}</span>
