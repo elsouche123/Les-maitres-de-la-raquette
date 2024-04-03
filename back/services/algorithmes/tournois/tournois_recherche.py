@@ -23,7 +23,6 @@ def tout_les_tournois():
     db = DatabaseService()
     collection = db.get_collection("tournois")
     filtre = {}
-    projection = {"_id": 0}
-    resultat = list(collection.find(filtre, projection))
+    resultat = list(collection.find(filtre))
     db.seDeconnecter()
     return resultat

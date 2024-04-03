@@ -18,8 +18,6 @@ def get_by_place_name(place_name):
     return jsonify(result)
 
 
-
-
 @tournois_bp.route('/', methods=['POST'])
 def add_tournoi():
     result = request.json
@@ -38,3 +36,13 @@ def update_tournois():
         return jsonify({"error": "Les données de modification sont manquantes"})
     tournois_modification.modifier_tournois(id_tournois, document_modification)
     return jsonify({"message": "tournois mis à jour avec succès"})
+
+
+@tournois_bp.route('/<string:id_tournoi>', methods=['PUT'])
+def insertion_joueur_tournoi(id_tournoi):
+    data = request.json
+    numero_inscription = data.get('NumeroInscription')
+    nom = data.get('Nom')
+    prenom = data.get('Prenom')
+    result_messages = tournois_insertion.insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom)
+    return jsonify({"messages": result_messages})
