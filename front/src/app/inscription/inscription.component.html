@@ -9,10 +9,6 @@
     </div>
   </div>
 
-  <!-- Message de succès -->
-  <div *ngIf="messageSucces" class="alert alert-success">
-    {{ messageSucces }}
-  </div>
 
   <div class="container mt-3">
     <form #inscriptionForm="ngForm" (ngSubmit)="onSubmit(inscriptionForm)" novalidate>
@@ -104,7 +100,7 @@
                 <label for="pays" class="form-label fw-bold">Pays <span class="required-asterisk">*</span></label>
                 <ng-select [items]="paysListe"
                     bindLabel="nom"
-                    bindValue="code"
+                    bindValue="nom"
                     placeholder="Choisir..."
                     [(ngModel)]="inscriptionModel.pays"
                     [typeahead]="filtrePays"
@@ -155,9 +151,9 @@
           </div>
 
           <div class="mb-3">
-            <label for="classement" class="form-label fw-bold">Classement <span class="required-asterisk">*</span></label>
-            <input type="number" class="form-control" id="classement" name="classement" [(ngModel)]="inscriptionModel.classement" placeholder="non classé" required>
-          </div>
+            <label for="classement" class="form-label fw-bold">Classement</label>
+            <input type="number" class="form-control" id="classement" name="classement" [(ngModel)]="inscriptionModel.classement" placeholder="non classé" [disabled]="inscriptionModel.licence === 'Amateur'">
+          </div>          
         </div>
       </fieldset>
 
@@ -172,12 +168,13 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!inscriptionModel.confirmation && inscriptionForm.submitted" class="alert alert-danger">
-        Vous devez confirmer que toutes les informations déclarées sont correctes avant de soumettre le formulaire.
-      </div>
 
       <button type="submit" class="btn btn-submit">Soumettre</button>
       
     </form>
+     <!-- Message de succès -->
+    <div *ngIf="messageSucces" class="alert alert-success">
+      {{ messageSucces }}
+    </div>
   </div>
 </div>

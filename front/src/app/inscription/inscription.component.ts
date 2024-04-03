@@ -40,7 +40,7 @@ export class InscriptionComponent {
     confirmation: false
   };
 
-  constructor(private inscriptionService: InscriptionService, private http: HttpClient) {
+  constructor(private inscriptionService: InscriptionService, private http: HttpClient) { 
     this.chargerPays();
     this.initialiserFiltrePays();
   }
@@ -92,7 +92,7 @@ export class InscriptionComponent {
       this.paysListe = Object.entries(data.countries).map(([code, nom]) => ({code, nom}));
     });
   }
-
+  
 
   private calculerAge(dateNaissance: Date): number {
     const aujourdHui = new Date();

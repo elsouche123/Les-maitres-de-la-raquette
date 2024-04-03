@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +17,9 @@ import { ContributeursComponent } from './contributeurs/contributeurs.component'
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-personnelles.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TournoiComponent } from './tournoi/tournoi.component';
+
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PlanDuSiteComponent,
     ContributeursComponent,
     MentionsLegalesComponent,
-    DonneesPersonnellesComponent
+    DonneesPersonnellesComponent,
+    TournoiComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     HttpClientModule,
     NgSelectModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR' } // Utiliser la locale française
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
