@@ -23,10 +23,17 @@ def add_joueur():
     print(request.json)
     nom = request.json.get('nom')
     prenom = request.json.get('prenom')
-    sexe = request.json.get('sexe')
-    categorie = request.json.get('categorie')
-    print(categorie)
-    #joueur_insertion.insertion_joueur(nom, prenom, sexe, categorie)
+    genre = request.json.get('genre')
+    age = request.json.get('age')
+    courriel = request.json.get('courriel')
+    telephone = request.json.get('telephone')
+    adresse = request.json.get('adresse')
+    codePostale = request.json.get('codePostale')
+    ville = request.json.get('ville')
+    pays = request.json.get('pays')
+    licence = request.json.get('licence')
+    classement = request.json.get('classement')
+    joueur_insertion.insertion_joueur(genre, nom, prenom, age, courriel, telephone, adresse, codePostale, ville, pays, licence, classement)
     return f"Tu as ajouté dans le fichier : {request.json}"
 
 
