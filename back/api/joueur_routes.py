@@ -18,6 +18,12 @@ def get_by_name(joueurs_name):
     return jsonify(result)
 
 
+@joueur_bp.route('/INS/<string:joueur_numero>', methods=['GET'])
+def get_by_numero(joueur_numero):
+    result = joueur_recherche.recherche_par_numero(joueur_numero)
+    return jsonify(result)
+
+
 @joueur_bp.route('/', methods=['POST'])
 def add_joueur():
     print(request.json)
