@@ -1,13 +1,24 @@
-import datetime
-
 from back.services.connexion.DatabaseService import DatabaseService
 from back.services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
 from back.services.algorithmes.joueur import joueur_match
 
 
-def insertion_tournoi(document: str):
+def insertion_tournoi(id: str, nb_table: int, nom_tournoi: str, type: str, nature: str, place_disponible: int, statut: bool, date_ouverture: str, date_fermeture: str):
     db = DatabaseService()
     collection = db.get_collection("tournois")
+    document = {
+        "_id": id,
+        "nbTable": nb_table,
+        "nomTournoi": nom_tournoi,
+        "type": type,
+        "nature": nature,
+        "placeDisponible": place_disponible,
+        "statut": statut,
+        "dateOuverture": date_ouverture,
+        "dateFermeture": date_fermeture,
+        "joueurs": [],
+        "matchs": []
+    }
     collection.insert_one(document)
     db.seDeconnecter()
 
