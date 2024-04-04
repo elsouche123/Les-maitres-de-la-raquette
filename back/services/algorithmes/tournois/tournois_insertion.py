@@ -14,7 +14,7 @@ def insertion_tournoi(document: str):
 def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
     result_messages = []
 
-    if not joueur_existe(numero_inscription, nom, prenom):
+    if not joueur_existe(nom, prenom, numero_inscription=numero_inscription):
         result_messages.append("Le joueur n'existe pas dans la base de données des joueurs.")
         return result_messages
 
@@ -61,4 +61,51 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
 
     return result_messages
 
+def supprimer_joueur_tournoi(id_tournoi, numero_inscription):
+    result_messages = []
+
+    db = DatabaseService()
+    collection = db.get_collection("tournois")
+
+    tournoi = collection.find_one({"_id": id_tournoi})
+
+    if not tournoi:
+        result_messages.append("Tournoi non trouvé.")
+        return result_messages
+
+    joueurs_actuels = tournoi.get("joueurs", [])
+    place_disponible = tournoi.get("placeDisponible", 0)
+
+    joueur_supprime = False
+
+    for joueur in joueurs_actuels:
+        if joueur["numeroInscription"] == numero_inscription:
+            joueurs_actuels.remove(joueur)
+            place_disponible += 1
+            joueur_supprime = True
+            break
+
+    if not joueur_supprime:
+        result_messages.append("Le joueur n'est pas inscrit à ce tournoi.")
+        return result_messages
+
+    collection.update_one(
+        {"_id": id_tournoi},
+        {"$set": {"joueurs": joueurs_actuels, "placeDisponible": place_disponible}}
+    )
+
+    if place_disponible > 0:
+        collection.update_one(
+            {"_id": id_tournoi},
+            {"$set": {"statut": True}}
+        )
+        result_messages.append("Le joueur a été supprimé avec succès du tournoi.")
+    else:
+        collection.update_one(
+            {"_id": id_tournoi},
+            {"$set": {"statut": False}}
+        )
+        result_messages.append("Nombre de participants atteint. Le tournoi est maintenant fermé.")
+
+    return result_messages
 

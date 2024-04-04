@@ -16,11 +16,11 @@ def get_by_status(statut):
     statut_param = request.view_args['statut']
 
     if statut_param.lower() == 'true':
-      statut_bool = True
+        statut_bool = True
     elif statut_param.lower() == 'false':
-      statut_bool = False
+        statut_bool = False
     else:
-      return jsonify({"message": "Statut invalide. Utilisez True ou False."}), 400
+        return jsonify({"message": "Statut invalide. Utilisez True ou False."}), 400
 
     result = tournois_recherche.tournois_statut(statut_bool)
     return jsonify(result)
@@ -57,11 +57,18 @@ def update_tournois():
     return jsonify({"message": "tournois mis à jour avec succès"})
 
 
-@tournois_bp.route('/<string:id_tournoi>', methods=['PUT'])
+@tournois_bp.route('/ajouter/<string:id_tournoi>', methods=['PUT'])
 def insertion_joueur_tournoi(id_tournoi):
     data = request.json
     numero_inscription = data.get('numeroInscription')
     nom = data.get('nom')
     prenom = data.get('prenom')
     result_messages = tournois_insertion.insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom)
+    return jsonify({"messages": result_messages})
+
+@tournois_bp.route('/supprimer/<string:id_tournoi>', methods=['PUT'])
+def suppression_joueur_tournoi(id_tournoi):
+    data = request.json
+    numero_inscription = data.get('numeroInscription')
+    result_messages = tournois_insertion.supprimer_joueur_tournoi(id_tournoi, numero_inscription)
     return jsonify({"messages": result_messages})

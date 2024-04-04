@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from back.services.algorithmes.joueur import joueur_recherche
 from back.services.algorithmes.joueur import joueur_modification
 from back.services.algorithmes.joueur import joueur_insertion
+from back.services.algorithmes.joueur.joueur_verif import joueur_existe
 
 joueur_bp = Blueprint('joueur', __name__)
 
@@ -39,6 +40,10 @@ def add_joueur():
     pays = request.json.get('pays')
     licence = request.json.get('licence')
     classement = request.json.get('classement')
+
+    if joueur_existe(nom, prenom, age=age, genre=genre):
+        return jsonify("Le joueur existe deja !")
+
     result = joueur_insertion.insertion_joueur(genre, nom, prenom, age, courriel, telephone, adresse, codePostale, ville, pays, licence, classement)
     print(result)
     return jsonify(result)
@@ -47,8 +52,8 @@ def add_joueur():
 @joueur_bp.route('/', methods=['PUT'])
 def update_joueur():
     modification = request.json
-    id_joueur = modification.get('_id')  # Supposons que l'identifiant soit fourni dans le document JSON
-    document_modification = modification.get('modification')  # Supposons que les modifications soient fournies dans un champ "modification" dans le JSON
+    id_joueur = modification.get('_id')
+    document_modification = modification.get('modification')
     if not id_joueur:
         return jsonify({"error": "L'identifiant du joueur est manquant"})
     if not document_modification:

@@ -25,6 +25,13 @@ def tournois_statut(statut):
     tournois = list(collection.find({"statut": statut}))
     return tournois
 
+def trouver_tournoi_par_id(id_tournoi):
+    db = DatabaseService()
+    collection = db.get_collection("tournois")
+    tournoi = collection.find_one({"_id": id_tournoi}, {"_id": 0})
+    db.seDeconnecter()
+    return tournoi
+
 
 def tout_les_tournois():
     db = DatabaseService()
