@@ -8,7 +8,7 @@ class DatabaseService:
 
     def __init__(self):
         self.__uri = "mongodb://localhost:27017/"
-        self.__dbname = "testPingPong"
+        self.__dbname = "tenis"
         self.__client = MongoClient(self.__uri)[self.__dbname]
 
     def get_collection(self, collection_name):

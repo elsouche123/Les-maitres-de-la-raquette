@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tournoi } from '../models/tournoi.models';
+import {Joueur} from "../models/joueur.models";
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,18 @@ import { Tournoi } from '../models/tournoi.models';
 export class TournoiService {
   private protocole = "http";
   private serveur = "localhost:5000";
+  private api: string = "/api"
 
   constructor(private http: HttpClient) {} // Injection du HttpClient pour les requêtes HTTP
   // Récupère la liste des tournois depuis le backend
   getTournois(): Observable<Tournoi[]> {
-    const url = `${this.protocole}://${this.serveur}/api/tournois`;
+    const url = `${this.protocole}://${this.serveur}${this.api}/tournois`;
     return this.http.get<Tournoi[]>(url);
+  }
+
+// Méthode pour récupérer les détails du joueur par numéro de joueur
+  getJoueurByNumero(numero: string): Observable<Joueur[]> {
+    const url = `${this.protocole}://${this.serveur}${this.api}/joueur/INS/${numero}`;
+    return this.http.get<Joueur[]>(url);
   }
 }
