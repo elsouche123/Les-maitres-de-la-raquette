@@ -33,7 +33,7 @@ def rechercher_tournois_par_numero(numero: str):
     collection = db.get_collection("tournois")
     projection = {"_id": 0}
     filtre = {
-        "joueur.numero": numero
+        "joueurs.numeroInscription": numero
     }
     result = list(collection.find(filtre, projection))
     db.seDeconnecter()
