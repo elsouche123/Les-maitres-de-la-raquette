@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from back.services.algorithmes.tournois import tournois_recherche
 from back.services.algorithmes.tournois import tournois_modification
-from back.services.algorithmes.tournois import tournois_insertion
+from back.services.algorithmes.tournois import tournois_insertion, tournois_gestion_score
 
 tournois_bp = Blueprint('tournois', __name__)
 
@@ -54,6 +54,7 @@ def update_tournois():
     if not document_modification:
         return jsonify({"error": "Les données de modification sont manquantes"})
     tournois_modification.modifier_tournois(id_tournois, document_modification)
+    tournois_gestion_score.inserer_vainqueur_tournois(id_tournois)
     return jsonify({"message": "tournois mis à jour avec succès"})
 
 

@@ -76,10 +76,9 @@ def gestion_matchs(id):
             elif tournois['type'] == "double":
                 matchs = creer_matchs_double(joueurs)
             if matchs:
-                print('bravo')
                 tournois_modification.modifier_match_tournois(id, matchs)
-                #tournois_gestion_score.initialiser_scores(matchs)
-                #tournois_gestion_score.inserer_vainqueur(matchs)
+                tournois_gestion_score.initialiser_scores(id, matchs)
+
             else:
                 print("Aucun match n'a été créé.")
     else:
