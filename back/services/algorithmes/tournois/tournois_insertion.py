@@ -36,9 +36,10 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
     joueurs_actuels = tournoi.get("joueurs", [])
     place_disponible = tournoi.get("placeDisponible", 0)
 
+    print(place_disponible)
     if place_disponible <= 0:
         result_messages.append("Le tournoi est complet. Aucun joueur ne peut être ajouté.")
-        joueur_match.gestion_matchs()
+        print("Gestion des matchs")
         return result_messages
 
     joueurs_actuels.append(joueur)
@@ -55,6 +56,7 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
             {"$set": {"statut": False}}
         )
         result_messages.append("Nombre de participants atteint. Le tournoi est maintenant fermé.")
+        joueur_match.gestion_matchs(id_tournoi)
 
     else:
         result_messages.append("Le joueur a été ajouté avec succès au tournoi.")
