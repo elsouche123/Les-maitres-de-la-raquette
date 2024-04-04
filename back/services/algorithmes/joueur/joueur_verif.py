@@ -4,13 +4,13 @@ def joueur_deja_inscrit(numero_inscription):
     db = DatabaseService()
     collection = db.get_collection("tournois")
 
-    tournois = collection.find({"Statut": True})
+    tournois = collection.find({"statut": True})
 
     for tournoi in tournois:
         joueurs_actuels = tournoi.get("Joueurs", [])
 
         for joueur in joueurs_actuels:
-            if joueur["NumeroInscription"] == numero_inscription:
+            if joueur["numeroInscription"] == numero_inscription:
                 return True
 
     return False
@@ -20,9 +20,9 @@ def joueur_existe(numero_inscription, nom, prenom):
     collection = db.get_collection("joueur")
 
     joueur = collection.find_one({
-        "NumeroInscription": numero_inscription,
-        "Nom": nom,
-        "Prenom": prenom
+        "numeroInscription": numero_inscription,
+        "nom": nom,
+        "prenom": prenom
     })
 
     return joueur is not None

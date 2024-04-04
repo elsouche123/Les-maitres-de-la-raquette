@@ -2,28 +2,12 @@ import datetime
 
 from back.services.connexion.DatabaseService import DatabaseService
 from back.services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
+from back.services.algorithmes.joueur import joueur_match
 
 
 def insertion_tournoi(document: str):
     db = DatabaseService()
     collection = db.get_collection("tournois")
-    collection.insert_one(document)
-    db.seDeconnecter()
-
-
-def insertion_match(id_joueur1: str, id_joueur2: str, heure: str, categorie: str):
-    db = DatabaseService()
-    collection = db.get_collection("tournois")
-    document = {
-        "match"[
-        "joueurs": {
-            "j1": id_joueur1,
-            "j2": id_joueur2
-        },
-        "heure": heure,
-        "categorie": categorie
-        ]
-    }
     collection.insert_one(document)
     db.seDeconnecter()
 
@@ -41,7 +25,7 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
     db = DatabaseService()
     collection = db.get_collection("tournois")
 
-    joueur = {"NumeroInscription": numero_inscription, "Nom": nom, "Prenom": prenom}
+    joueur = {"numeroInscription": numero_inscription, "nom": nom, "prenom": prenom}
 
     tournoi = collection.find_one({"_id": id_tournoi})
 
@@ -49,11 +33,12 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
         result_messages.append("Tournoi non trouvé.")
         return result_messages
 
-    joueurs_actuels = tournoi.get("Joueurs", [])
-    place_disponible = tournoi.get("PlaceDisponible", 0)
+    joueurs_actuels = tournoi.get("joueurs", [])
+    place_disponible = tournoi.get("placeDisponible", 0)
 
     if place_disponible <= 0:
         result_messages.append("Le tournoi est complet. Aucun joueur ne peut être ajouté.")
+        joueur_match.gestion_matchs()
         return result_messages
 
     joueurs_actuels.append(joueur)
@@ -61,15 +46,16 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
 
     collection.update_one(
         {"_id": id_tournoi},
-        {"$set": {"Joueurs": joueurs_actuels, "PlaceDisponible": place_disponible}}
+        {"$set": {"joueurs": joueurs_actuels, "placeDisponible": place_disponible}}
     )
 
     if place_disponible == 0:
         collection.update_one(
             {"_id": id_tournoi},
-            {"$set": {"Statut": False}}
+            {"$set": {"statut": False}}
         )
         result_messages.append("Nombre de participants atteint. Le tournoi est maintenant fermé.")
+
     else:
         result_messages.append("Le joueur a été ajouté avec succès au tournoi.")
 

@@ -19,6 +19,13 @@ def rechercher_tournois_par_lieu(nom_lieu: str):
     return resultat
 
 
+def tournois_statut(statut):
+    db = DatabaseService()
+    collection = db.get_collection("tournois")
+    tournois = list(collection.find({"statut": statut}))
+    return tournois
+
+
 def tout_les_tournois():
     db = DatabaseService()
     collection = db.get_collection("tournois")
