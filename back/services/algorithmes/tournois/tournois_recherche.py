@@ -26,3 +26,15 @@ def tout_les_tournois():
     result = list(collection.find({}, projection))
     db.seDeconnecter()
     return result
+
+
+def rechercher_tournois_par_numero(numero: str):
+    db = DatabaseService()
+    collection = db.get_collection("tournois")
+    projection = {"_id": 0}
+    filtre = {
+        "joueur.numero": numero
+    }
+    result = list(collection.find(filtre, projection))
+    db.seDeconnecter()
+    return result

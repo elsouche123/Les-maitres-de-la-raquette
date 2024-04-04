@@ -39,8 +39,9 @@ def add_joueur():
     pays = request.json.get('pays')
     licence = request.json.get('licence')
     classement = request.json.get('classement')
-    joueur_insertion.insertion_joueur(genre, nom, prenom, age, courriel, telephone, adresse, codePostale, ville, pays, licence, classement)
-    return f"Tu as ajouté dans le fichier : {request.json}"
+    result = joueur_insertion.insertion_joueur(genre, nom, prenom, age, courriel, telephone, adresse, codePostale, ville, pays, licence, classement)
+    print(result)
+    return jsonify(result)
 
 
 @joueur_bp.route('/', methods=['PUT'])

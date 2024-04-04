@@ -35,3 +35,4 @@ def recherche_par_numero(numero):
     result = list(collections.find(filtre, projection))
     db.seDeconnecter()
     return result
+
