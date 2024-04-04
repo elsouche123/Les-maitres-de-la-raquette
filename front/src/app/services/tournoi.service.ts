@@ -13,7 +13,7 @@ export class TournoiService {
   constructor(private http: HttpClient) {} // Injection du HttpClient pour les requêtes HTTP
   // Récupère la liste des tournois depuis le backend
   getTournois(): Observable<Tournoi[]> {
-    const url = `${this.protocole}://${this.serveur}/api/tournoi`;
+    const url = `${this.protocole}://${this.serveur}/api/tournois`;
     return this.http.get<Tournoi[]>(url);
   }
 }

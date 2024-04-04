@@ -1,5 +1,6 @@
 from back.services.connexion.DatabaseService import DatabaseService
 
+
 def joueur_deja_inscrit(numero_inscription):
     db = DatabaseService()
     collection = db.get_collection("tournois")
@@ -14,6 +15,7 @@ def joueur_deja_inscrit(numero_inscription):
                 return True
 
     return False
+
 
 def joueur_existe(numero_inscription, nom, prenom):
     db = DatabaseService()

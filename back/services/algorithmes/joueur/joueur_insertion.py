@@ -27,5 +27,6 @@ def insertion_joueur(genre: str, nom: str, prenom: str, age: int, courriel: str,
     update = {"$set": {"numeroInscription": objectid_last_8_chars}}
     collection.update_one(filter, update)
     db.seDeconnecter()
+    return {"numeroInscription": objectid_last_8_chars}
 
 
