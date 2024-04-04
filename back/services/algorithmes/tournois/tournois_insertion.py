@@ -1,5 +1,3 @@
-import datetime
-
 from back.services.connexion.DatabaseService import DatabaseService
 from back.services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
 

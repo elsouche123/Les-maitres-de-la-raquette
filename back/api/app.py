@@ -2,12 +2,14 @@ from flask import Flask
 from tournois_routes import tournois_bp
 from joueur_routes import joueur_bp
 from equipe_route import equipe_bp
+from calcule_routes import calcule_bp
 
 app = Flask(__name__)
 
 app.register_blueprint(joueur_bp, url_prefix='/api/joueur')
 app.register_blueprint(tournois_bp, url_prefix='/api/tournois')
 app.register_blueprint(equipe_bp, url_prefix='/api/equipe')
+app.register_blueprint(calcule_bp, url_prefix='/api/calcule')
 
 
 @app.route('/')
