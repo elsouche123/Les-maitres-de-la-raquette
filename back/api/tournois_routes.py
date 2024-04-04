@@ -20,8 +20,15 @@ def get_by_place_name(place_name):
 
 @tournois_bp.route('/', methods=['POST'])
 def add_tournoi():
-    result = request.json
-    tournois_insertion.insertion_tournoi(result)
+    id = request.json['id']
+    nom_tournois = request.json['nomTournoi']
+    type = request.json['type']
+    nature = request.json['nature']
+    place_disponible = request.json['placeDisponible']
+    statut = request.json['statut']
+    date_ouverture = request.json['dateOuverture']
+    date_fermeture = request.json['dateFermeture']
+    tournois_insertion.insertion_tournoi(id, nom_tournois, type, nature, place_disponible, statut, date_ouverture, date_fermeture)
     return f"Tu as ajouté un tournoi : {request.json}"
 
 
