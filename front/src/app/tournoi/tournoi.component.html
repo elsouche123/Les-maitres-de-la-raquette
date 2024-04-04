@@ -54,14 +54,33 @@
         <thead>
           <tr>
             <th>Tournoi</th>
-            <th>Matchs</th>
+            <th>Type</th>
+            <th>Place Disponible</th>
             <th>Date d'Ouverture</th>
             <th>Date de Fermeture</th>
+            <th>Inscription</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let tournoi of tournois">
-            <!-- Contenu de chaque ligne du tableau -->
+            <td>{{ tournoi.nomTournoi }}</td>
+            <td>
+              <span *ngIf="tournoi.type === 'simple'">
+                <i class="bi bi-person" style="font-size: 24px; color: #28a745;"></i> Simple
+              </span>
+              <span *ngIf="tournoi.type === 'double'">
+                <i class="bi bi-people" style="font-size: 24px; color: #007bff;"></i> Double
+              </span>
+            </td>
+            <td>{{ tournoi.placeDisponible }}</td>
+            <td>{{ tournoi.dateOuverture | date: 'dd MMMM yyyy' }}</td>
+            <td>{{ tournoi.dateFermeture | date: 'dd MMMM yyyy' }}</td>
+            <td>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="{{'inscription_' + tournoi.nomTournoi}}">
+                <label class="form-check-label" for="{{'inscription_' + tournoi.nomTournoi}}"></label>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

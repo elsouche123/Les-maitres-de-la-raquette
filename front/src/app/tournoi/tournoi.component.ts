@@ -18,7 +18,7 @@ export class TournoiComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Vous pouvez également charger les tournois ici s'ils doivent être affichés par défaut
+     this.getTournoisOuverts();
   }
 
   voirNouveauxTournois(): void {
@@ -46,5 +46,12 @@ export class TournoiComponent implements OnInit {
           // Gérer l'erreur ici, par exemple afficher un message d'erreur à l'utilisateur
         }
     );
+  }
+
+  getTournoisOuverts(): void {
+    this.tournoiService.getTournoisOuverts().subscribe((tournois: Tournoi[]) => {
+      console.log(tournois);
+      this.tournois = tournois;
+    });
   }
 }
