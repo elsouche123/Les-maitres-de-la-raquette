@@ -25,6 +25,12 @@ def add_tournoi():
     return f"Tu as ajouté un tournoi : {request.json}"
 
 
+@tournois_bp.route('/tournois_joueur/<string:numero>', methods=['GET'])
+def get_tournois_by_numero_joueur(numero):
+    result = tournois_recherche.rechercher_tournois_par_numero(numero)
+    return jsonify(result)
+
+
 @tournois_bp.route('/', methods=['PUT'])
 def update_tournois():
     modification = request.json
