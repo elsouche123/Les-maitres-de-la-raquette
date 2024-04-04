@@ -23,3 +23,16 @@ def tout_les_joueurs():
     result = list(collections.find({}, projection))
     db.seDeconnecter()
     return result
+
+
+def recherche_par_numero(numero):
+    db = DatabaseService()
+    collections = db.get_collection("joueur")
+    projection = {"_id": 0}
+    filtre = {
+      "numeroInscription": numero
+    }
+    result = list(collections.find(filtre, projection))
+    db.seDeconnecter()
+    return result
+

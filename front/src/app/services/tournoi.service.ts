@@ -7,15 +7,13 @@ import { Tournoi } from '../models/tournoi.models';
   providedIn: 'root'
 })
 export class TournoiService {
-  private apiUrl = 'http://localhost:5000/api/tournois';
+  private protocole = "http";
+  private serveur = "localhost:5000";
 
-  constructor(private http: HttpClient) {}
-
-  getTournoisDisponibles(): Observable<Tournoi[]> {
-    return this.http.get<Tournoi[]>(`${this.apiUrl}`);
-  }
-
-  getTournoisInscrits(): Observable<Tournoi[]> {
-    return this.http.get<Tournoi[]>(`${this.apiUrl}`);
+  constructor(private http: HttpClient) {} // Injection du HttpClient pour les requêtes HTTP
+  // Récupère la liste des tournois depuis le backend
+  getTournois(): Observable<Tournoi[]> {
+    const url = `${this.protocole}://${this.serveur}/api/tournois`;
+    return this.http.get<Tournoi[]>(url);
   }
 }
