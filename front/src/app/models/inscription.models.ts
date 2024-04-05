@@ -15,10 +15,10 @@ export interface Inscription {
   //Info joueurs
   numeroInscription: string, //12ABC23350F(a generer clé unique)
   licence: string; //amateur ou pro
-  classement : number | null; //rien ou 15 
+  classement : number | null; //rien ou 15
   confirmation: boolean; //oui ou non
 }
-/**Pour le formulaire des joueurs j'utilise: 
+/**Pour le formulaire des joueurs j'utilise:
  * Nom
  * prenom
  * date de naissance

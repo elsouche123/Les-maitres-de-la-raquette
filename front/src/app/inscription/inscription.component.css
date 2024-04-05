@@ -17,3 +17,8 @@
 .required-asterisk {
   color: rgb(110, 9, 9);
 }
+
+.bi-exclamation-triangle-custom{
+    font-size: 1.2rem;
+    color: #e81c1c;
+}

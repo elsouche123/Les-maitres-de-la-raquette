@@ -1,69 +1,111 @@
 import { Component, OnInit } from '@angular/core';
 import { Tournoi } from '../models/tournoi.models';
 import { TournoiService } from '../services/tournoi.service';
-import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-tournoi',
-  templateUrl: './tournoi.component.html',
-  styleUrls: ['./tournoi.component.css'],
-  providers: [DatePipe]
+ selector: 'app-tournoi',
+ templateUrl: './tournoi.component.html',
+ styleUrls: ['./tournoi.component.css']
 })
 export class TournoiComponent implements OnInit {
-  numeroInscription: string = '';
-  inscriptionValide: boolean | null = null;
-  messageValidation: string = '';
-  fieldsetOpen: boolean = true;
-  tournois: Tournoi[] = [];
+ numeroInscription: string = '';
+ inscriptionValide: boolean | null = null;
+ messageValidation: string = '';
+ fieldsetOpen: boolean = true;
+ tournois: Tournoi[] = [];
+ nomJoueur: string = '';
+ prenomJoueur: string = '';
+ idTournoi: string = '';
+ constructor(private tournoiService: TournoiService, private router: Router) {
+ }
 
-  constructor(private tournoiService: TournoiService, private datePipe: DatePipe) {}
-  validerNumeroInscription() {
-    // Simulation : Supposons que tous les numéros d'inscription valides commencent par "INS"
-    if (this.numeroInscription.startsWith('INS')) {
-      this.inscriptionValide = true;
-      this.messageValidation = 'Numéro d’inscription valide.';
-      this.fieldsetOpen = false; // Fermer le fieldset lorsque le numéro d'inscription est validé
-      // Appeler la méthode pour récupérer les détails de l'utilisateur
-    } else {
-      this.inscriptionValide = false;
-      this.messageValidation = 'Numéro d’inscription non valide. Veuillez réessayer.';
-    }
-  }
-  
-  ngOnInit(): void {
-    this.getTournois();
-  }
 
-  // Dans la méthode getTournois()
-getTournois(): void {
-  this.tournoiService.getTournois().subscribe((tournois: Tournoi[]) => {
-    this.tournois = tournois.map(tournoi => ({
-      ...tournoi,
-      dateOuverture: this.datePipe.transform(tournoi.dateOuverture, 'dd/MM/yyyy'),
-      dateFermeture: this.datePipe.transform(tournoi.dateFermeture, 'dd/MM/yyyy')
-    }));
-  });
+ ngOnInit(): void {
+ }
+
+
+ getTournoisOuverts(): void {
+   this.tournoiService.getTournoisOuverts().subscribe((tournois: Tournoi[]) => {
+     this.tournois = tournois;
+     console.log(tournois)
+   });
+ }
+ onChange(event: Event, idTournoi: string): void {
+   if (event.target !== null && 'checked' in event.target) {
+       const isChecked: boolean = (event.target as HTMLInputElement).checked;
+       if (isChecked && this.inscriptionValide) {
+           //idTournoi = this.idTournoi
+           console.log('je suis la ')
+           console.log(this.tournois[0])
+           this.tournoiService.ajouterJoueurTournoi(idTournoi, {
+               numeroInscription: this.numeroInscription,
+               nom: this.nomJoueur,
+               prenom: this.prenomJoueur
+           }).subscribe({
+               next: (response) => {
+                   console.log('Joueur ajouté avec succès', response);
+                   alert(JSON.stringify(response));
+               },
+               error: (error) => {
+                   console.error('Erreur lors de l\'ajout du joueur', error);
+               }
+           });
+       } else {
+            console.log(this.numeroInscription)
+           this.tournoiService.supprimerJoueurTournoi(idTournoi, this.numeroInscription)
+               .subscribe({
+                   next: (response) => {
+                       console.log('Joueur supprimé avec succès', response);
+                       alert(JSON.stringify(response));
+                       // Traiter la réponse ou effectuer d'autres actions ici
+                   },
+                   error: (error) => {
+                       console.error('Erreur lors de la suppression du joueur', error);
+                   }
+               });
+       }
+   }
+ }
+
+
+ voirNouveauxTournois(): void {
+   this.getTournoisOuverts();
+ }
+
+
+ voirTournoisInscrits(): void {
+   // Implémentez ici la logique pour afficher les tournois inscrits
+ }
+
+
+ validerNumeroInscription(): void {
+   this.tournoiService.getJoueurByNumero(this.numeroInscription).subscribe(
+       (data: any[]) => {
+         if (data.length !== 0) {
+           this.inscriptionValide = true;
+           this.messageValidation = 'Bonjour ' + data[0].prenom + ' ' + data[0].nom + '.';
+           this.nomJoueur = data[0].nom
+             this.prenomJoueur = data[0].prenom
+         } else {
+           this.inscriptionValide = false;
+           this.messageValidation = 'Numéro d’inscription non valide. Veuillez réessayer.';
+         }
+       },
+       (error: any) => {
+         console.error('Erreur lors de la validation du numéro d\'inscription', error);
+       }
+   );
+ }
+
+
+
+
+
+
+ ouvrirPageAjoutTournois() {
+   this.router.navigate(['/ajout-tournoi']);
+ }
 }
 
-inscrireAuTournoi(tournoi: Tournoi, type: string): void {
-  // Implémentez ici la logique pour inscrire l'utilisateur à un tournoi
-  // Utilisez l'argument 'type' pour déterminer si l'inscription est en simple ou en double
-}
-
-
-  voirNouveauxTournois(): void {
-    // Implémentez ici la logique pour afficher les nouveaux tournois
-  }
-
-  voirTournoisInscrits(): void {
-    // Implémentez ici la logique pour afficher les tournois inscrits
-  }
-
-
-  chargerTournois() {
-    // Utilisez votre service pour charger les tournois depuis la base de données
-    this.tournoiService.getTournois().subscribe((data: Tournoi[]) => {
-      this.tournois = data; // Mettez à jour la liste des tournois avec les données récupérées
-    });
-  }
-}

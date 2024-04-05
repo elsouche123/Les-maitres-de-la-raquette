@@ -72,3 +72,14 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%; /* Arrondi du cercle à l'intérieur du switch */
 }
+
+.bi-forder-plus-custom{
+  font-size: 2rem;
+  color: cornflowerblue;
+  padding-right: 0.8rem;
+}
+
+.bi-forder-plus-custom:hover
+{
+  cursor:grab;
+}

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from back.services.algorithmes.tournois import tournois_recherche
 from back.services.algorithmes.tournois import tournois_modification
-from back.services.algorithmes.tournois import tournois_insertion, tournois_gestion_score
+from back.services.algorithmes.tournois import tournois_insertion
 
 tournois_bp = Blueprint('tournois', __name__)
 
@@ -33,16 +33,8 @@ def get_by_place_name(place_name):
 
 @tournois_bp.route('/', methods=['POST'])
 def add_tournoi():
-    id = request.json['_id']
-    nb_tableau = request.json['nbTableau']
-    nom_tournois = request.json['nomTournoi']
-    type = request.json['type']
-    nature = request.json['nature']
-    place_disponible = request.json['placeDisponible']
-    statut = request.json['statut']
-    date_ouverture = request.json['dateOuverture']
-    date_fermeture = request.json['dateFermeture']
-    tournois_insertion.insertion_tournoi(id, nb_tableau, nom_tournois, type, nature, place_disponible, statut, date_ouverture, date_fermeture)
+    result = request.json
+    tournois_insertion.insertion_tournoi(result)
     return f"Tu as ajouté un tournoi : {request.json}"
 
 
