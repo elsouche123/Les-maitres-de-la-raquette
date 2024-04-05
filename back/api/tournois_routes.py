@@ -33,7 +33,7 @@ def get_by_place_name(place_name):
 
 @tournois_bp.route('/', methods=['POST'])
 def add_tournoi():
-    id = request.json['id']
+    id = request.json['_id']
     nb_tableau = request.json['nbTableau']
     nom_tournois = request.json['nomTournoi']
     type = request.json['type']

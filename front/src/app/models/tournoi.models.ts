@@ -1,23 +1,27 @@
 // Modele pour la table Tournoi
 
+
 export interface Joueur {
   numeroInscription: string;
   nom: string;
   prenom: string;
-}
-
-export interface Adversaire {
+ }
+ 
+ 
+ export interface Adversaire {
   nom: string;
   prenom: string;
-}
-
-export interface Match {
+ }
+ 
+ 
+ export interface Match {
   adversaire1: Adversaire[];
   adversaire2: Adversaire[];
-}
-
-export interface Tournoi {
-  id: string;
+ }
+ 
+ 
+ export interface Tournoi {
+  _id: string;
   nomTournoi: string;
   type: string;
   nature: string;
@@ -28,4 +32,6 @@ export interface Tournoi {
   nbTableau: number;
   joueur:[];
   match: [];
-}
+ }
+ 
+ 

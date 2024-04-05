@@ -36,8 +36,7 @@ def trouver_tournoi_par_id(id_tournoi):
 def tout_les_tournois():
     db = DatabaseService()
     collection = db.get_collection("tournois")
-    projection = {"_id": 0}
-    result = list(collection.find({}, projection))
+    result = list(collection.find({}))
     db.seDeconnecter()
     return result
 
