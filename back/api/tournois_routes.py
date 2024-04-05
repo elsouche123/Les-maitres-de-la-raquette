@@ -81,3 +81,8 @@ def suppression_joueur_tournoi(id_tournoi):
     numero_inscription = data.get('numeroInscription')
     result_messages = tournois_insertion.supprimer_joueur_tournoi(id_tournoi, numero_inscription)
     return jsonify({"messages": result_messages})
+
+@tournois_bp.route('/tournois_matchs', methods=['GET'])
+def get_tournois_with_matchs():
+    matchs = tournois_recherche.tout_les_matchs()
+    return jsonify(matchs)

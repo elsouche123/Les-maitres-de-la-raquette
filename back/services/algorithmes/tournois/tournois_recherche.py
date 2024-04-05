@@ -52,3 +52,31 @@ def rechercher_tournois_par_numero(numero: str):
     result = list(collection.find(filtre, projection))
     db.seDeconnecter()
     return result
+
+def tout_les_matchs():
+    db = DatabaseService()
+    collection = db.get_collection("tournois")
+    tous_les_matchs = []
+
+    tous_les_tournois = collection.find({}, {"_id": 1, "nomTournoi": 1, "type": 1, "nature": 1, "matchs": 1})
+
+    for tournoi in tous_les_tournois:
+        tournoi_id = tournoi["_id"]
+        nom_tournoi = tournoi["nomTournoi"]
+        type_tournoi = tournoi["type"]
+        nature_tournoi = tournoi["nature"]
+        matchs_tournoi = tournoi.get("matchs", [])
+
+        for match in matchs_tournoi:
+            match["tournoi"] = {
+                "id": tournoi_id,
+                "nom": nom_tournoi,
+                "type": type_tournoi,
+                "nature": nature_tournoi
+            }
+            tous_les_matchs.append(match)
+
+    db.seDeconnecter()
+    return tous_les_matchs
+
+
