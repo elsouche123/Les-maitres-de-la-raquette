@@ -39,6 +39,7 @@ export class AjoutTournoiComponent {
          if (!response) {
            tournoiForm.reset();
            this.messageSuccess = 'Tournoi ajouté avec succès !';
+            alert(JSON.stringify(response));
            this.messageError = '';
          }
        },

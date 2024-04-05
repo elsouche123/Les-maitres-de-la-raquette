@@ -52,7 +52,7 @@ export class TournoiService {
 
 
  supprimerJoueurTournoi(idTournoi: string, numeroInscription: string): Observable<{ messages: string[] }> {
-   const url = `${this.protocole}://${this.serveur}${this.api}/supprimer/${idTournoi}`;
+   const url = `${this.protocole}://${this.serveur}${this.api}/tournois/supprimer/${idTournoi}`;
    const data = { numeroInscription };
    return this.http.put<{ messages: string[] }>(url, data);
  }

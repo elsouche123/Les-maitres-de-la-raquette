@@ -46,23 +46,25 @@ export class TournoiComponent implements OnInit {
            }).subscribe({
                next: (response) => {
                    console.log('Joueur ajouté avec succès', response);
-                   // Traiter la réponse ou effectuer d'autres actions ici
+                   alert(JSON.stringify(response));
                },
                error: (error) => {
                    console.error('Erreur lors de l\'ajout du joueur', error);
                }
            });
        } else {
-           /*this.tournoiService.supprimerJoueurTournoi(idTournoi, idJoueur)
+            console.log(this.numeroInscription)
+           this.tournoiService.supprimerJoueurTournoi(idTournoi, this.numeroInscription)
                .subscribe({
                    next: (response) => {
                        console.log('Joueur supprimé avec succès', response);
+                       alert(JSON.stringify(response));
                        // Traiter la réponse ou effectuer d'autres actions ici
                    },
                    error: (error) => {
                        console.error('Erreur lors de la suppression du joueur', error);
                    }
-               });*/
+               });
        }
    }
  }
