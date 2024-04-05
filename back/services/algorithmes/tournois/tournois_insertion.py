@@ -1,13 +1,24 @@
-import datetime
-
 from back.services.connexion.DatabaseService import DatabaseService
 from back.services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
 from back.services.algorithmes.joueur import joueur_match
 
 
-def insertion_tournoi(document: str):
+def insertion_tournoi(id: str, nb_table: int, nom_tournoi: str, type: str, nature: str, place_disponible: int, statut: bool, date_ouverture: str, date_fermeture: str):
     db = DatabaseService()
     collection = db.get_collection("tournois")
+    document = {
+        "_id": id,
+        "nbTable": nb_table,
+        "nomTournoi": nom_tournoi,
+        "type": type,
+        "nature": nature,
+        "placeDisponible": place_disponible,
+        "statut": statut,
+        "dateOuverture": date_ouverture,
+        "dateFermeture": date_fermeture,
+        "joueurs": [],
+        "matchs": []
+    }
     collection.insert_one(document)
     db.seDeconnecter()
 
@@ -38,7 +49,6 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
 
     if place_disponible <= 0:
         result_messages.append("Le tournoi est complet. Aucun joueur ne peut être ajouté.")
-        joueur_match.gestion_matchs()
         return result_messages
 
     joueurs_actuels.append(joueur)
@@ -55,6 +65,7 @@ def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
             {"$set": {"statut": False}}
         )
         result_messages.append("Nombre de participants atteint. Le tournoi est maintenant fermé.")
+        joueur_match.gestion_matchs(id_tournoi)
 
     else:
         result_messages.append("Le joueur a été ajouté avec succès au tournoi.")

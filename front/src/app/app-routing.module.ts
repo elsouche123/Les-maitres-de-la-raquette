@@ -8,6 +8,7 @@ import { ContributeursComponent } from './contributeurs/contributeurs.component'
 import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-personnelles.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { TournoiComponent } from './tournoi/tournoi.component';
+import { AjoutTournoiComponent } from './ajout-tournoi/ajout-tournoi.component';
 
 
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'donnees-personnelles', component: DonneesPersonnellesComponent},
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'tournoi', component:TournoiComponent},
+  { path: 'ajout-tournoi', component:AjoutTournoiComponent},
 ];
 
 @NgModule({

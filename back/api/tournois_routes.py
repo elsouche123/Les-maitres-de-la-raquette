@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from back.services.algorithmes.tournois import tournois_recherche
 from back.services.algorithmes.tournois import tournois_modification
-from back.services.algorithmes.tournois import tournois_insertion
+from back.services.algorithmes.tournois import tournois_insertion, tournois_gestion_score
 
 tournois_bp = Blueprint('tournois', __name__)
 
@@ -33,8 +33,16 @@ def get_by_place_name(place_name):
 
 @tournois_bp.route('/', methods=['POST'])
 def add_tournoi():
-    result = request.json
-    tournois_insertion.insertion_tournoi(result)
+    id = request.json['id']
+    nb_tableau = request.json['nbTableau']
+    nom_tournois = request.json['nomTournoi']
+    type = request.json['type']
+    nature = request.json['nature']
+    place_disponible = request.json['placeDisponible']
+    statut = request.json['statut']
+    date_ouverture = request.json['dateOuverture']
+    date_fermeture = request.json['dateFermeture']
+    tournois_insertion.insertion_tournoi(id, nb_tableau, nom_tournois, type, nature, place_disponible, statut, date_ouverture, date_fermeture)
     return f"Tu as ajouté un tournoi : {request.json}"
 
 
@@ -54,6 +62,7 @@ def update_tournois():
     if not document_modification:
         return jsonify({"error": "Les données de modification sont manquantes"})
     tournois_modification.modifier_tournois(id_tournois, document_modification)
+    tournois_gestion_score.inserer_vainqueur_tournois(id_tournois)
     return jsonify({"message": "tournois mis à jour avec succès"})
 
 

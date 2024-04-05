@@ -1,6 +1,6 @@
 from back.services.algorithmes.tournois import tournois_modification
 from back.services.algorithmes.tournois import tournois_recherche
-
+from back.services.algorithmes.tournois import tournois_gestion_score
 def afficher_matchs_tournoi(tournoi):
     matchs = tournoi.get('matchs', [])
     if not matchs:
@@ -19,10 +19,6 @@ def afficher_matchs_tournoi(tournoi):
 
 def creer_matchs_simple(joueurs):
     matchs = []
-
-    if len(joueurs) < 2:
-        print("Il n'y a pas suffisamment de joueurs pour créer un match.")
-        return matchs
 
     for i in range(len(joueurs)):
         for j in range(i + 1, len(joueurs)):
@@ -69,6 +65,7 @@ def creer_matchs_double(joueurs):
 
 
 def gestion_matchs(id):
+
     tournois = tournois_recherche.trouver_tournoi_par_id(id)
     matchs = []
     if tournois:
@@ -80,6 +77,8 @@ def gestion_matchs(id):
                 matchs = creer_matchs_double(joueurs)
             if matchs:
                 tournois_modification.modifier_match_tournois(id, matchs)
+                tournois_gestion_score.initialiser_scores(id, matchs)
+
             else:
                 print("Aucun match n'a été créé.")
     else:

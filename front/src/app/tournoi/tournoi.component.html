@@ -35,7 +35,10 @@
       <div class="mb-3 d-flex align-items-center">
         <label for="numeroInscription" class="form-label me-2" style="margin-bottom: 0;">Numéro d'Inscription :</label>
         <input type="text" class="form-control me-2" id="numeroInscription" [(ngModel)]="numeroInscription" placeholder="Entrez votre numéro d'inscription" style="width: auto;">
-        <button class="btn btn-outline-primary" (click)="validerNumeroInscription()">Valider</button>
+        <button class="btn btn-outline-primary me-2" (click)="validerNumeroInscription()">Valider</button>
+        <div class="ms-auto">
+          <i class="bi bi-folder-plus bi-forder-plus-custom" (click)="ouvrirPageAjoutTournois()"></i>
+        </div>
       </div>
 
       <!-- Message de validation -->
@@ -45,8 +48,8 @@
 
       <!-- Boutons pour voir les nouveaux tournois ou les tournois inscrits -->
       <div class="d-flex justify-content-between mt-3" *ngIf="inscriptionValide">
-        <button class="btn btn-primary" (click)="voirNouveauxTournois()">Voir Nouveaux Tournois</button>
-        <button class="btn btn-secondary" (click)="voirTournoisInscrits()">Tournois Inscrits</button>
+        <button class="btn btn-primary" (click)="voirNouveauxTournois()">Les Tournois</button>
+        <button class="btn btn-secondary" (click)="voirTournoisInscrits()"> Mes Tournois</button>
       </div>
 
       <!-- Tableau des tournois -->
@@ -77,7 +80,7 @@
             <td>{{ tournoi.dateFermeture | date: 'dd MMMM yyyy' }}</td>
             <td>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="{{'inscription_' + tournoi.nomTournoi}}">
+                <input class="form-check-input" type="checkbox" id="{{'inscription_' + tournoi.nomTournoi}}"> <!--(change) onChange($event)-->
                 <label class="form-check-label" for="{{'inscription_' + tournoi.nomTournoi}}"></label>
               </div>
             </td>

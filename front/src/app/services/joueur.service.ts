@@ -8,12 +8,13 @@ import { Joueur } from '../models/joueur.models';
 export class JoueurService {
   private protocole = "http";
   private serveur = "localhost:5000";
+  private api = "/api";
 
   constructor(private http: HttpClient) {} // Injection du HttpClient pour les requêtes HTTP
 
   // Récupère la liste des joueurs depuis le backend
   getJoueurs() {
-    const url = `${this.protocole}://${this.serveur}/api/joueur`;
+    const url = `${this.protocole}://${this.serveur}${this.api}/joueur`;
     return this.http.get<Joueur[]>(url); // Retourne un Observable de Joueur[]
   }
 }

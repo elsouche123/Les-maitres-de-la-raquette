@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tournoi } from '../models/tournoi.models';
 import { TournoiService } from '../services/tournoi.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournoi',
@@ -14,15 +15,41 @@ export class TournoiComponent implements OnInit {
   fieldsetOpen: boolean = true;
   tournois: Tournoi[] = [];
 
-  constructor(private tournoiService: TournoiService) {
+  constructor(private tournoiService: TournoiService, private router: Router) {
   }
 
   ngOnInit(): void {
-     this.getTournoisOuverts();
   }
 
+ /* onChange(event: Event): void {
+    if (event.target !== null && 'checked' in event.target) {
+      const isChecked: boolean = (event.target as HTMLInputElement).checked;
+      this.tournoiService.ajouterJoueurTournoi(idTournoi, { idJoueur, nom, prenom, ... })
+        .subscribe({
+          next: (response) => {
+            console.log('Joueur ajouté avec succès', response);
+            // Traiter la réponse ou effectuer d'autres actions ici
+          },
+          error: (error) => {
+            console.error('Erreur lors de l\'ajout du joueur', error);
+          }
+        });
+    } else {
+      this.tournoiService.supprimerJoueurTournoi(idTournoi, idJoueur)
+        .subscribe({
+          next: (response) => {
+            console.log('Joueur supprimé avec succès', response);
+            // Traiter la réponse ou effectuer d'autres actions ici
+          },
+          error: (error) => {
+            console.error('Erreur lors de la suppression du joueur', error);
+          }
+        });
+    }
+  }
+*/
   voirNouveauxTournois(): void {
-    // Implémentez ici la logique pour afficher les nouveaux tournois
+    this.getTournoisOuverts();
   }
 
   voirTournoisInscrits(): void {
@@ -32,7 +59,6 @@ export class TournoiComponent implements OnInit {
   validerNumeroInscription(): void {
     this.tournoiService.getJoueurByNumero(this.numeroInscription).subscribe(
         (data: any[]) => {
-          console.log(data);
           if (data.length !== 0) {
             this.inscriptionValide = true;
             this.messageValidation = 'Bonjour ' + data[0].prenom + ' ' + data[0].nom + '.';
@@ -43,15 +69,17 @@ export class TournoiComponent implements OnInit {
         },
         (error: any) => {
           console.error('Erreur lors de la validation du numéro d\'inscription', error);
-          // Gérer l'erreur ici, par exemple afficher un message d'erreur à l'utilisateur
         }
     );
   }
 
   getTournoisOuverts(): void {
     this.tournoiService.getTournoisOuverts().subscribe((tournois: Tournoi[]) => {
-      console.log(tournois);
       this.tournois = tournois;
     });
+  }
+
+  ouvrirPageAjoutTournois() {
+    this.router.navigate(['/ajout-tournoi']);
   }
 }

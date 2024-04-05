@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, catchError, throwError} from "rxjs";
 import {Tournoi} from "../models/tournoi.models";
 import {Joueur} from "../models/joueur.models";
 
@@ -26,9 +26,24 @@ export class TournoiService {
     return this.http.get<Joueur[]>(url);
   }
 
-  // Méthode pour récupérer les tournois ouverts
   getTournoisOuverts(): Observable<Tournoi[]> {
     const url = `${this.protocole}://${this.serveur}${this.api}/tournois?statut=true`;
-    return this.http.get<Tournoi[]>(url);
+    return this.http.get<Tournoi[]>(url).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des tournois ouverts:', error);
+        return throwError(error); // Propage l'erreur
+      })
+    );
+  }
+
+  ajouterJoueurTournoi(idTournoi: string, joueurData: { numeroInscription: string, nom: string, prenom: string }): Observable<{ messages: string[] }> {
+    const url = `${this.protocole}://${this.serveur}${this.api}/ajouter/${idTournoi}`;
+    return this.http.put<{ messages: string[] }>(url, joueurData);
+  }
+
+  supprimerJoueurTournoi(idTournoi: string, numeroInscription: string): Observable<{ messages: string[] }> {
+    const url = `${this.protocole}://${this.serveur}${this.api}/supprimer/${idTournoi}`;
+    const data = { numeroInscription };
+    return this.http.put<{ messages: string[] }>(url, data);
   }
 }

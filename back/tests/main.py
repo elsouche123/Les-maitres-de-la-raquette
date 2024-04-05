@@ -1,7 +1,7 @@
 from back.services.affichage import main_menu
 import back.services.algorithmes.joueur.joueur_insertion as insertion
 import back.services.algorithmes.joueur.joueur_recherche as recherche
-import back.services.algorithmes.nombre_participants.mele_general_nombre_participants as mg
+import back.services.algorithmes.nombre_participants.mele_general as mg
 import back.services.algorithmes.nombre_participants.elimination_directe_nombre_participants as ed
 
 
