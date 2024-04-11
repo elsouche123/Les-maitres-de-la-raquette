@@ -64,5 +64,5 @@ def update_joueur():
 
 @joueur_bp.route('/classement', methods=['GET'])
 def afficher_classement():
-    classment = joueur_classement.calculer_classement_general()
-    return joueur_classement.afficher_classement(classment)
+    classement = joueur_classement.calculer_classement_general()
+    return joueur_classement.afficher_classement(classement)

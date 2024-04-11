@@ -62,7 +62,11 @@ def update_tournois():
     if not document_modification:
         return jsonify({"error": "Les données de modification sont manquantes"})
     tournois_modification.modifier_tournois(id_tournois, document_modification)
-    tournois_gestion_score.inserer_vainqueur_tournois(id_tournois)
+    type_modification = document_modification.get('type')
+    if type_modification == 'simple':
+        tournois_gestion_score.inserer_vainqueur_tournois_simple(id_tournois)
+    elif type_modification == 'double':
+        tournois_gestion_score.inserer_vainqueur_tournois_double(id_tournois)
     return jsonify({"message": "tournois mis à jour avec succès"})
 
 

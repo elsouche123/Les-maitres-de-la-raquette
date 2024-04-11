@@ -9,12 +9,13 @@ import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-per
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { TournoiComponent } from './tournoi/tournoi.component';
 import { AjoutTournoiComponent } from './ajout-tournoi/ajout-tournoi.component';
-
+import { ClassementComponent } from './classement/classement.component';
 
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
   { path: 'liste-joueur', component: ListeJoueurComponent },
+    { path: 'liste-joueur/:nomDuJoueur', component: ListeJoueurComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'plan-du-site', component: PlanDuSiteComponent },
   { path: 'contributeurs', component: ContributeursComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'tournoi', component:TournoiComponent},
   { path: 'ajout-tournoi', component:AjoutTournoiComponent},
+    { path: 'classement', component: ClassementComponent },
 ];
 
 @NgModule({
