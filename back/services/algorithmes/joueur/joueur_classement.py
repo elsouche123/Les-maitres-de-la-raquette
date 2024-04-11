@@ -10,9 +10,16 @@ def calculer_classement_general():
             vainqueur_nom = match['vainqueur']
 
             if vainqueur_nom != 'match_nul':
-                if vainqueur_nom not in classement:
-                    classement[vainqueur_nom] = 0
-                classement[vainqueur_nom] += 1
+                if 'et' in vainqueur_nom:
+                    vainqueurs = vainqueur_nom.split(' et ')
+                    for vainqueur in vainqueurs:
+                        if vainqueur not in classement:
+                            classement[vainqueur] = 0
+                        classement[vainqueur] += 1
+                else:
+                    if vainqueur_nom not in classement:
+                        classement[vainqueur_nom] = 0
+                    classement[vainqueur_nom] += 1
 
     classement = dict(sorted(classement.items(), key=lambda item: item[1], reverse=True))
 
