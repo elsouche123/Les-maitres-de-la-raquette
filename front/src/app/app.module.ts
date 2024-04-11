@@ -18,6 +18,8 @@ import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.co
 import { DonneesPersonnellesComponent } from './donnees-personnelles/donnees-personnelles.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TournoiComponent } from './tournoi/tournoi.component';
+import { AjoutTournoiComponent } from './ajout-tournoi/ajout-tournoi.component';
+import { ClassementComponent } from './classement/classement.component';
 
 registerLocaleData(localeFr);
 
@@ -33,7 +35,8 @@ registerLocaleData(localeFr);
     ContributeursComponent,
     MentionsLegalesComponent,
     DonneesPersonnellesComponent,
-    TournoiComponent
+    TournoiComponent,
+    AjoutTournoiComponent
   ],
   imports: [
     BrowserModule,
