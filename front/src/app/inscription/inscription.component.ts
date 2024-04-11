@@ -7,19 +7,15 @@ import { Pays } from '../models/pays.models';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
-
-
-
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.css']
 })
 export class InscriptionComponent {
-  messageSucces: string = '';
-  messageErreur: string = '';
-  estDejaInscrit: boolean = false;
+  numInscriptionGenererErreur: boolean=false;
   paysListe: Pays[] = [];
+  numInscriptionGenerer: string = '';
   filtrePays = new Subject<string>();
   inscriptionModel: Inscription = {
     resultat: '',
@@ -27,56 +23,55 @@ export class InscriptionComponent {
     nom: '',
     prenom: '',
     dateNaissance: null,
-    age: null, // L'âge sera calculé, donc initialisé à null
+    age: null,
     courriel: '',
     telephone: '',
     adresse: '',
     codePostale: null,
     ville: '',
     pays: '',
-    numeroInscription: '', // Assurez-vous que ce champ est conforme à votre logique côté serveur
+    numeroInscription: '',
     licence: '',
     classement: null,
     confirmation: false
   };
 
-  constructor(private inscriptionService: InscriptionService, private http: HttpClient) { 
+  constructor(private inscriptionService: InscriptionService, private http: HttpClient) {
     this.chargerPays();
     this.initialiserFiltrePays();
   }
 
   onSubmit(inscriptionForm: NgForm) {
-    if (inscriptionForm.valid) {
-      if (this.inscriptionModel.dateNaissance) {
-        this.inscriptionModel.age = this.calculerAge(new Date(this.inscriptionModel.dateNaissance));
-      }
-      this.inscriptionService.soumettreInscription(this.inscriptionModel).subscribe(
-        response => {
-          console.log('Inscription réussie', response);
-          // Adaptation de la logique en fonction de la réponse de l'API
-          if (response.resultat === 'Joueur ajouté avec succès') {
-            this.messageSucces = `Bravo ${this.inscriptionModel.prenom}, tu es inscrit!`;
-            this.messageErreur = '';
-            this.estDejaInscrit = false;
-          } else if (response.resultat === 'Joueur déjà inscrit') {
-            this.messageErreur = `Tu es déjà inscrit dans la liste des joueurs, ${this.inscriptionModel.prenom}. Tu peux aller voir la liste des matchs!`;
-            this.messageSucces = '';
-            this.estDejaInscrit = true;
-          }
-          // Réinitialisation du formulaire ou redirection de l'utilisateur
-          inscriptionForm.reset();
-        },
-        error => {
-          console.error('Erreur lors de l\'inscription', error);
-        }
-      );
+  console.log('Tentative de soumission du formulaire...');
+  if (inscriptionForm.valid) {
+    console.log('Formulaire valide, envoi des données au serveur...');
+    if (this.inscriptionModel.dateNaissance) {
+      this.inscriptionModel.age = this.calculerAge(new Date(this.inscriptionModel.dateNaissance));
     }
+    this.inscriptionService.soumettreInscription(this.inscriptionModel).subscribe(
+      response => {
+        console.log('Réponse de l\'API:', response);
+        if (response.numeroInscription) {
+          this.numInscriptionGenererErreur = false;
+          inscriptionForm.reset();
+          this.numInscriptionGenerer = response.numeroInscription;
+        } else {
+          this.numInscriptionGenererErreur = true;
+        }
+      },
+      error => {
+        console.error('Erreur lors de l\'inscription', error);
+      }
+    );
+  } else {
+    console.log('Formulaire invalide, soumission annulée.');
   }
+}
 
   initialiserFiltrePays() {
     this.filtrePays.pipe(
-      debounceTime(200), // Attendre pour les frappes de touche
-      distinctUntilChanged(), // Ignorer si la recherche est la même que la dernière
+      debounceTime(200),
+      distinctUntilChanged(),
       map(terme => terme ? this.recherchePays(terme) : this.paysListe.slice())
     ).subscribe(paysFiltres => {
       this.paysListe = paysFiltres;
@@ -92,7 +87,6 @@ export class InscriptionComponent {
       this.paysListe = Object.entries(data.countries).map(([code, nom]) => ({code, nom}));
     });
   }
-  
 
   private calculerAge(dateNaissance: Date): number {
     const aujourdHui = new Date();

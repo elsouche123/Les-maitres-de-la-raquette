@@ -1,6 +1,6 @@
 {
   "name": "anglar",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,6 +21,7 @@
     "@ng-select/ng-select": "^11.2.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "cors": "^2.8.5",
     "flag-icons": "^7.2.1",
     "i18n-iso-countries": "^7.11.0",
     "rxjs": "~7.8.0",

@@ -153,7 +153,7 @@
           <div class="mb-3">
             <label for="classement" class="form-label fw-bold">Classement</label>
             <input type="number" class="form-control" id="classement" name="classement" [(ngModel)]="inscriptionModel.classement" placeholder="non classé" [disabled]="inscriptionModel.licence === 'Amateur'">
-          </div>          
+          </div>
         </div>
       </fieldset>
 
@@ -170,11 +170,19 @@
       </div>
 
       <button type="submit" class="btn btn-submit">Soumettre</button>
-      
+
     </form>
-     <!-- Message de succès -->
-    <div *ngIf="messageSucces" class="alert alert-success">
-      {{ messageSucces }}
-    </div>
+        <div class="alert alert-success" *ngIf="numInscriptionGenerer">
+            Votre pré-inscription a été validé. Votre numéro de pre-inscription est : <strong>{{ numInscriptionGenerer }}</strong><br>
+            <br><i class="bi bi-exclamation-triangle bi-exclamation-triangle-custom"></i> Ce numéro vous sera demandé pour l'inscription à un tournoi.
+        </div>
+        <div class="alert alert-warning" *ngIf="numInscriptionGenererErreur">
+            <i class="bi bi-exclamation-triangle bi-exclamation-triangle-custom"></i> Votre demande n'a pas été prise en compte.
+        </div>
+
+
+
+
+
   </div>
 </div>
