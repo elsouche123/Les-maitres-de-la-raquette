@@ -8,21 +8,23 @@ def inserer_vainqueur_tournois(id_tournoi):
     if tournoi:
         matches = tournoi.get("matchs", [])
         for match in matches:
+            adversaire1 = match["match"]["adversaire1"]
+            adversaire2 = match["match"]["adversaire2"]
             score_adversaire1 = match["match"]["score"]["adversaire1"]
             score_adversaire2 = match["match"]["score"]["adversaire2"]
 
             if score_adversaire1 > score_adversaire2:
-                vainqueur = "adversaire1"
+                vainqueur_nom = adversaire1["nom"] + " " + adversaire1["prenom"]
             elif score_adversaire1 < score_adversaire2:
-                vainqueur = "adversaire2"
+                vainqueur_nom = adversaire2["nom"] + " " + adversaire2["prenom"]
             else:
-                vainqueur = "match_nul"
+                vainqueur_nom = "match_nul"
 
             filtre = {"_id": id_tournoi, "matchs.match": match["match"]}
-            mise_a_jour = {"$set": {"matchs.$.vainqueur": vainqueur}}
+            mise_a_jour = {"$set": {"matchs.$.vainqueur": vainqueur_nom}}
             collection.update_one(filtre, mise_a_jour)
-    db.seDeconnecter()
 
+    db.seDeconnecter()
 
 
 def initialiser_scores(id_tournoi, matches):

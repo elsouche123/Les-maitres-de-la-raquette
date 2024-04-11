@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from back.services.algorithmes.joueur import joueur_recherche
 from back.services.algorithmes.joueur import joueur_modification
-from back.services.algorithmes.joueur import joueur_insertion
+from back.services.algorithmes.joueur import joueur_insertion, joueur_classement
 from back.services.algorithmes.joueur.joueur_verif import joueur_existe
 
 joueur_bp = Blueprint('joueur', __name__)
@@ -60,3 +60,9 @@ def update_joueur():
         return jsonify({"error": "Les données de modification sont manquantes"})
     joueur_modification.modifier_joueur(id_joueur, document_modification)
     return jsonify({"message": "Joueur mis à jour avec succès"})
+
+
+@joueur_bp.route('/classement', methods=['GET'])
+def afficher_classement():
+    classment = joueur_classement.calculer_classement_general()
+    return joueur_classement.afficher_classement(classment)
