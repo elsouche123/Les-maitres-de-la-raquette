@@ -1,6 +1,6 @@
-from back.services.connexion.DatabaseService import DatabaseService
-from back.services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
-from back.services.algorithmes.joueur import joueur_match
+from services.connexion.DatabaseService import DatabaseService
+from services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
+from services.algorithmes.joueur import joueur_match
 
 
 def insertion_tournoi(id: str, nb_table: int, nom_tournoi: str, type: str, nature: str, place_disponible: int, statut: bool, date_ouverture: str, date_fermeture: str):
@@ -119,4 +119,3 @@ def supprimer_joueur_tournoi(id_tournoi, numero_inscription):
         result_messages.append("Nombre de participants atteint. Le tournoi est maintenant fermé.")
 
     return result_messages
-

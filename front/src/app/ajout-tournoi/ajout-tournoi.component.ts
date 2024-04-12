@@ -16,13 +16,13 @@ export class AjoutTournoiComponent {
    nomTournoi: '',
    type: '',
    nature: '',
-   placeDisponible: 0 ,
+   placeDisponible: 0,
    statut: true,
    dateOuverture: null,
    dateFermeture: null,
    nbTableau: 0,
    joueur: [],
-   match: [],
+   match: []
  };
  messageSuccess: string = '';
  messageError: string = '';
@@ -51,5 +51,3 @@ export class AjoutTournoiComponent {
    }
  }
 }
-
-

@@ -1,4 +1,4 @@
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def insertion_joueur(genre: str, nom: str, prenom: str, age: int, courriel: str, telephone: str, adresse: str, codePostale: int, ville: str, pays: str, licence: str, classement: int):
@@ -28,5 +28,3 @@ def insertion_joueur(genre: str, nom: str, prenom: str, age: int, courriel: str,
     collection.update_one(filter, update)
     db.seDeconnecter()
     return {"numeroInscription": objectid_last_8_chars}
-
-

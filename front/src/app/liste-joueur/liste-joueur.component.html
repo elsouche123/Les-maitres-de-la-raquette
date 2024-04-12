@@ -1,71 +1,79 @@
-<!-- Conteneur principal pour le contenu de la page -->
 <div class="container">
   <br>
-  <!-- Titre de la section des joueurs -->
-  <h1 class="h1-custom texte-couleur-bleu">Les Joueurs</h1>
+  <h1 class="h1-custom texte-couleur-custom">Les Joueurs</h1>
   <br>
 
-  <!-- Alert pour afficher des informations générales -->
   <div class="alert alert-primary" role="alert">
     <div class="message-information">
-        <i class="bi bi-info-circle bi-info-circle-custom"></i>
-        Liste de l'ensemble des Joueurs inscrits au tournoi de Ping Pong.
+      <i class="bi bi-info-circle bi-info-circle-custom"></i>
+      Liste de l'ensemble des Joueurs inscrits au tournoi de Ping Pong.
     </div>
   </div>
 
-  <!-- Barre de recherche pour filtrer les joueurs -->
-  <div class="search-bar">
-    <input type="text" [(ngModel)]="searchTerm" (keyup)="filterJoueurs()" placeholder="Rechercher un joueur ...">
-    <button class="search-button" (click)="filterJoueurs()">
-      <i class="bi bi-search bi-search-custom"></i> <span class="hide">Rechercher</span>
-    </button>
+  <div class="row align-items-center mb-4">
+    <div class="col-lg-4 mb-3 mb-lg-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Rechercher un joueur par nom..." [(ngModel)]="searchTerm" (keyup)="filterJoueurs()">
+        <button class="btn btn-custom" type="button" (click)="filterJoueurs()">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-sm-6 mb-2 mb-sm-0">
+          <select class="form-select" [(ngModel)]="selectedPays" (change)="filterJoueurs()">
+            <option value="">Tous les pays</option>
+            <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
+          </select>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="switchGenre" [(ngModel)]="switchStateGenre" (change)="toggleGenre()">
+            <label class="form-check-label" for="switchGenre">
+              <i *ngIf="switchStateGenre" class="bi bi-gender-female fs-3"></i>
+              <i *ngIf="!switchStateGenre" class="bi bi-gender-male fs-3"></i>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="switchLicence" [(ngModel)]="switchStateLicence" (change)="updateLicence(switchStateLicence)">
+        <label class="form-check-label" for="switchLicence">
+          <i *ngIf="switchStateLicence" class="bi bi-award-fill fs-3"></i>
+          <i *ngIf="!switchStateLicence" class="bi bi-trophy fs-3"></i>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let joueur of filteredJoueurs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="col-lg-3 col-md-4 col-sm-6">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{ joueur.nom | uppercase }}</h5>
+          <p class="card-text">{{ joueur.prenom | titlecase }}</p>
+          <p class="card-text">Age : {{ joueur.age }}</p>
+          <p class="card-text">Genre : {{ joueur.genre | titlecase }}</p>
+          <p class="card-text">Licence : {{ joueur.licence | titlecase }}</p>
+          <p class="card-text">Classement : {{ joueur.classement ? joueur.classement : 'Non classé' }}</p>
+          <p class="card-text">
+            <span class="fi fi-{{ joueur.countryCode | lowercase }} fis"></span> {{ joueur.pays }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <button class="btn btn-custom me-2" (click)="onPrevPage()" [disabled]="currentPage === 1">Précédent</button>
+      <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+      <button class="btn btn-custom ms-2" (click)="onNextPage()" [disabled]="currentPage === totalPages">Suivant</button>
+    </div>
   </div>
 </div>
-
-<!-- Conteneur pour les cartes des joueurs -->
-<div class="container">
-  <!-- Grille pour l'affichage des cartes -->
-  <div class="row sm-justify-content-center">
-  <!-- Boucle pour afficher chaque joueur -->
-  <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let joueur of filteredJoueurs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
-  <!-- Carte individuelle pour un joueur -->
-  <div class="card card-custom">
-    <div class="card-body card-body-custom">
-      <h1 class="card-title card-title-custom">{{ joueur.nom | uppercase}}</h1>
-      <h2 class="card-title card-title-second">{{ joueur.prenom | titlecase}}</h2>
-      <p class="card-text">Age : {{ joueur.age }}</p>
-      <p class="card-text">Genre :
-        <span *ngIf="joueur.genre === 'H' || joueur.genre === 'Homme'">Homme</span>
-        <span *ngIf="joueur.genre === 'F' || joueur.genre === 'Femme'">Femme</span>
-        <span *ngIf="joueur.genre === 'Autre'">Autre</span>
-      </p>
-      <p class="card-text">
-        Licence : {{joueur.licence | titlecase}}
-      </p>
-      <p class="card-text">
-        Classement :
-        <span *ngIf="joueur.classement; else nonClasse">{{ joueur.classement }}</span>
-        <ng-template #nonClasse>Non classé</ng-template>
-      </p>
-      <p class="card-text">
-      <span class="fi fi-{{joueur.countryCode | lowercase}} fis"></span> {{ joueur.pays }}
-      </p>
-    </div>
-  </div>
-  </div>
-  </div>
-  
-  <!-- Pagination pour naviguer entre les pages de joueurs -->
-  <div class="paginator">
-    <span>Nombre</span>
-    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange(itemsPerPage)">
-    <option value="5">5</option>
-    <option value="10" selected>10</option>
-    <option value="15">15</option>
-    </select>
-
-    <span>{{ startItemIndex }} - {{ endItemIndex }} of {{ totalItems }}</span>
-    <button (click)="onPrevPage()" [disabled]="currentPage === 1">Prev</button>
-    <button (click)="onNextPage()" [disabled]="currentPage === totalPages">Next</button>
-  </div>
-  </div>

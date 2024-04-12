@@ -1,4 +1,4 @@
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def recherche_joueur(objet_de_recherche: str):
@@ -35,4 +35,3 @@ def recherche_par_numero(numero):
     result = list(collections.find(filtre, projection))
     db.seDeconnecter()
     return result
-

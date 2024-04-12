@@ -1,4 +1,4 @@
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def joueur_deja_inscrit(numero_inscription):

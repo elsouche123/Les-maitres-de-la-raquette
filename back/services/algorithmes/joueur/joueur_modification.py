@@ -1,6 +1,6 @@
 from bson import ObjectId
 
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def modifier_joueur(id_joueur: str, document: str):
@@ -10,4 +10,3 @@ def modifier_joueur(id_joueur: str, document: str):
     mise_a_jour = {"$set": document}
     collection.update_one(filtre, mise_a_jour)
     db.seDeconnecter()
-

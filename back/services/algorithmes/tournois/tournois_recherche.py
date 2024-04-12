@@ -1,4 +1,4 @@
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def rechercher_tournois_par_date(date: str):
@@ -77,5 +77,3 @@ def tout_les_matchs():
 
     db.seDeconnecter()
     return tous_les_matchs
-
-

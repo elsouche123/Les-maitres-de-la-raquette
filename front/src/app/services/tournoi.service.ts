@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable, catchError, throwError} from "rxjs";
-import {Tournoi} from "../models/tournoi.models";
+import {Match, Tournoi} from "../models/tournoi.models";
 import {Joueur} from "../models/joueur.models";
 
 
@@ -41,6 +41,26 @@ export class TournoiService {
    );
  }
 
+ getTournoisFermes(): Observable<Tournoi[]> {
+  const url = `${this.protocole}://${this.serveur}${this.api}/tournois/false`;
+  return this.http.get<Tournoi[]>(url).pipe(
+    catchError((error) => {
+      console.error('Erreur lors de la récupération des tournois fermés:', error);
+      return throwError(error); // Propage l'erreur
+    })
+  );
+}
+
+getTournoisJoueur(numero: string): Observable<Tournoi[]> {
+  const url = `${this.protocole}://${this.serveur}${this.api}/tournois/tournois_joueur/${numero}`;
+  return this.http.get<Tournoi[]>(url).pipe(
+    catchError((error) => {
+      console.error('Erreur lors de la récupération des tournois du joueur:', error);
+      return throwError(error); // Propage l'erreur
+    })
+  );
+}
+
 
  ajouterJoueurTournoi(idTournoi: string, joueurData: { numeroInscription: string, nom: string, prenom: string }): Observable<{ messages: string[] }> {
      console.log('salit')
@@ -56,5 +76,7 @@ export class TournoiService {
    const data = { numeroInscription };
    return this.http.put<{ messages: string[] }>(url, data);
  }
-}
 
+
+
+}

@@ -1,29 +1,41 @@
-from back.services.algorithmes.tournois import tournois_recherche
+from services.algorithmes.tournois import tournois_recherche
 
 
 def calculer_classement_general():
-    classement = {}
+    classement_general = []
     tournois = tournois_recherche.tout_les_tournois()
 
     for tournoi in tournois:
-        for match in tournoi['matchs']:
-            vainqueur_nom = match['vainqueur']
+        nom_tournoi = tournoi.get('nomTournoi', 'N/A')
+        date_ouverture = tournoi.get('dateOuverture', 'N/A')
+        date_fermeture = tournoi.get('dateFermeture', 'N/A')
+        
+        # Récupérer le vainqueur et le score du dernier match du tournoi
+        dernier_match = tournoi.get('matchs', [])[-1] if tournoi.get('matchs') else {}
+        vainqueur = dernier_match.get('vainqueur', 'N/A')
+        score = dernier_match.get('score', {})
+        
+        # Vérifier si c'est un match nul ou non
+        if vainqueur == 'match_nul':
+            vainqueur = 'Match nul'
+            score_text = 'Match nul'
+        else:
+            vainqueur_nom = vainqueur.split(' et ')[0] if 'et' in vainqueur else vainqueur
+            score_text = f"{score['adversaire1']} - {score['adversaire2']}"
 
-            if vainqueur_nom != 'match_nul':
-                if 'et' in vainqueur_nom:
-                    vainqueurs = vainqueur_nom.split(' et ')
-                    for vainqueur in vainqueurs:
-                        if vainqueur not in classement:
-                            classement[vainqueur] = 0
-                        classement[vainqueur] += 1
-                else:
-                    if vainqueur_nom not in classement:
-                        classement[vainqueur_nom] = 0
-                    classement[vainqueur_nom] += 1
+        # Déterminer la nature du tournoi
+        nature = tournoi.get('nature', 'N/A')
 
-    classement = dict(sorted(classement.items(), key=lambda item: item[1], reverse=True))
+        classement_general.append({
+            "Nom du tournoi": nom_tournoi,
+            "Date d'ouverture": date_ouverture,
+            "Date de fermeture": date_fermeture,
+            "Vainqueur": vainqueur_nom,
+            "Score": score_text,
+            "Nature": nature
+        })
 
-    return classement
+    return classement_general
 
 
 def afficher_classement(classement):

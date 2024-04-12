@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -36,9 +36,10 @@ registerLocaleData(localeFr);
     MentionsLegalesComponent,
     DonneesPersonnellesComponent,
     TournoiComponent,
-    AjoutTournoiComponent
+    AjoutTournoiComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

@@ -1,4 +1,4 @@
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def insertion_equipe(nom: str, joueurs: list[str, str]):
@@ -13,4 +13,3 @@ def insertion_equipe(nom: str, joueurs: list[str, str]):
     }
     collection.insert_one(document)
     db.seDeconnecter()
-

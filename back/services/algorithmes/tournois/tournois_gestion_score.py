@@ -1,5 +1,5 @@
-from back.services.algorithmes.tournois import tournois_modification
-from back.services.connexion.DatabaseService import DatabaseService
+from services.algorithmes.tournois import tournois_modification
+from services.connexion.DatabaseService import DatabaseService
 def inserer_vainqueur_tournois_simple(id_tournoi):
     db = DatabaseService()
     collection = db.get_collection("tournois")
@@ -63,4 +63,3 @@ def initialiser_scores(id_tournoi, matches):
         }
         match["vainqueur"] = ""
     tournois_modification.modifier_score_tournois(id_tournoi, matches)
-

@@ -1,4 +1,4 @@
-from back.services.connexion.DatabaseService import DatabaseService
+from services.connexion.DatabaseService import DatabaseService
 
 
 def modifier_nom_equipe(nom_equipe: str, nouveau_nom: str):
@@ -41,4 +41,3 @@ def modifier_equipe(nom_equipe: str, nouveau_nom: str, nouveau_nom_joueur1: str,
     }
     collection.update_one(filtre, mise_a_jour)
     db.seDeconnecter()
-

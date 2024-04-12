@@ -1,4 +1,4 @@
-import back.services.algorithmes.nombre_participants.utils as utils
+import services.algorithmes.nombre_participants.utils as utils
 
 
 def calcul_max_participants(temps_disponible: str, nombre_de_table: int):
