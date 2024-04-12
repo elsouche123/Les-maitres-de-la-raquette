@@ -7,7 +7,7 @@ def convertion_temps(temps_a_convertir: str):
 
 
 def calcule_duree_match():
-    return 11
+    return 9
 
 
 def calcul_match_max(temps_disponible: str):
