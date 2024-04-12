@@ -57,4 +57,3 @@ export class TournoiService {
    return this.http.put<{ messages: string[] }>(url, data);
  }
 }
-

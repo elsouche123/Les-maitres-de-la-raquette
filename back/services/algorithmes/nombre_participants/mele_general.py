@@ -1,3 +1,5 @@
+import math
+
 import back.services.algorithmes.nombre_participants.utils as utils
 
 
@@ -12,7 +14,11 @@ def calcul_max_participants(temps_disponible: str, nombre_de_table: int):
 
 
 def calcul_temps_max(participants: int, nombre_de_table: int):
-    nombre_matches = participants // 2 // nombre_de_table
-    duree_match = utils.calcule_duree_match()
-    temps_total_minutes = nombre_matches * duree_match
-    return temps_total_minutes
+    if nombre_de_table < participants:
+        nombre_matches = (participants * (participants - 1) // 2) // nombre_de_table
+        duree_match = utils.calcule_duree_match()
+        temps_total_minutes = nombre_matches * duree_match
+        return temps_total_minutes
+    else:
+        return 9
+

@@ -25,11 +25,6 @@ def get_by_status(statut):
     result = tournois_recherche.tournois_statut(statut_bool)
     return jsonify(result)
 
-@tournois_bp.route('/<string:place_name>', methods=['GET'])
-def get_by_place_name(place_name):
-    result = tournois_recherche.rechercher_tournois_par_lieu(place_name)
-    return jsonify(result)
-
 
 @tournois_bp.route('/', methods=['POST'])
 def add_tournoi():
@@ -62,11 +57,7 @@ def update_tournois():
     if not document_modification:
         return jsonify({"error": "Les données de modification sont manquantes"})
     tournois_modification.modifier_tournois(id_tournois, document_modification)
-    type_modification = document_modification.get('type')
-    if type_modification == 'simple':
-        tournois_gestion_score.inserer_vainqueur_tournois_simple(id_tournois)
-    elif type_modification == 'double':
-        tournois_gestion_score.inserer_vainqueur_tournois_double(id_tournois)
+    tournois_gestion_score.inserer_vainqueur_tournois(id_tournois)
     return jsonify({"message": "tournois mis à jour avec succès"})
 
 
@@ -85,8 +76,3 @@ def suppression_joueur_tournoi(id_tournoi):
     numero_inscription = data.get('numeroInscription')
     result_messages = tournois_insertion.supprimer_joueur_tournoi(id_tournoi, numero_inscription)
     return jsonify({"messages": result_messages})
-
-@tournois_bp.route('/tournois_matchs', methods=['GET'])
-def get_tournois_with_matchs():
-    matchs = tournois_recherche.tout_les_matchs()
-    return jsonify(matchs)

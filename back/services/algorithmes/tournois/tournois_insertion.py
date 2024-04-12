@@ -22,6 +22,7 @@ def insertion_tournoi(id: str, nb_table: int, nom_tournoi: str, type: str, natur
     collection.insert_one(document)
     db.seDeconnecter()
 
+
 def insertion_joueur_tournoi(id_tournoi, numero_inscription, nom, prenom):
     result_messages = []
 
