@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 
-from services.algorithmes.equipe import equipe_recherche
-from services.algorithmes.equipe import equipe_modification
-from services.algorithmes.equipe import equipe_insertion
+from back.services.algorithmes.equipe import equipe_recherche
+from back.services.algorithmes.equipe import equipe_modification
+from back.services.algorithmes.equipe import equipe_insertion
 
 equipe_bp = Blueprint('equipe', __name__)
 

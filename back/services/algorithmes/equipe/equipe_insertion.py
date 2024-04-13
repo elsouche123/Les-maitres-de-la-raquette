@@ -1,4 +1,4 @@
-from services.connexion.DatabaseService import DatabaseService
+from back.services.connexion.DatabaseService import DatabaseService
 
 
 def insertion_equipe(nom: str, joueurs: list[str, str]):

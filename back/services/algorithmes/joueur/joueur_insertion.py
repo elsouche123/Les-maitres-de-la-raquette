@@ -1,4 +1,4 @@
-from services.connexion.DatabaseService import DatabaseService
+from back.services.connexion.DatabaseService import DatabaseService
 
 
 def insertion_joueur(genre: str, nom: str, prenom: str, age: int, courriel: str, telephone: str, adresse: str, codePostale: int, ville: str, pays: str, licence: str, classement: int):

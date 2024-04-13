@@ -1,5 +1,5 @@
 import math
-from services.algorithmes.nombre_participants import utils
+from back.services.algorithmes.nombre_participants import utils
 
 
 def calcul_max_participants(temps_disponible: str, nombre_de_parties: int):

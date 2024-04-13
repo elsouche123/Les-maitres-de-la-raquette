@@ -1,5 +1,5 @@
 from bson import ObjectId
-from services.connexion.DatabaseService import DatabaseService
+from back.services.connexion.DatabaseService import DatabaseService
 
 
 def modifier_tournois(id_tournoi: str, document: int):

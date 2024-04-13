@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
-from services.algorithmes.tournois import tournois_recherche
-from services.algorithmes.tournois import tournois_modification
-from services.algorithmes.tournois import tournois_insertion, tournois_gestion_score
+from back.services.algorithmes.tournois import tournois_recherche
+from back.services.algorithmes.tournois import tournois_modification
+from back.services.algorithmes.tournois import tournois_insertion, tournois_gestion_score
 
 tournois_bp = Blueprint('tournois', __name__)
 

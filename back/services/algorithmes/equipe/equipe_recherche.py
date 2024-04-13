@@ -1,4 +1,4 @@
-from services.connexion.DatabaseService import DatabaseService
+from back.services.connexion.DatabaseService import DatabaseService
 
 
 def recherche_equipe_par_equipier(nom_joueur: str):

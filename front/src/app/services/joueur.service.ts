@@ -14,7 +14,7 @@ export class JoueurService {
 
   // Récupère la liste des joueurs depuis le backend
   getJoueurs() {
-    const url = `${this.protocole}://${this.serveur}/api/joueur/`;
+    const url = `${this.protocole}://${this.serveur}/api/joueur`;
     return this.http.get<Joueur[]>(url); // Retourne un Observable de Joueur[]
   }
   getClassement(){

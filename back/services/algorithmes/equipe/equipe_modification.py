@@ -1,4 +1,4 @@
-from services.connexion.DatabaseService import DatabaseService
+from back.services.connexion.DatabaseService import DatabaseService
 
 
 def modifier_nom_equipe(nom_equipe: str, nouveau_nom: str):

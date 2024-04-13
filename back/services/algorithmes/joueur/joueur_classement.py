@@ -1,4 +1,4 @@
-from services.algorithmes.tournois import tournois_recherche
+from back.services.algorithmes.tournois import tournois_recherche
 
 
 def calculer_classement_general():
@@ -9,12 +9,12 @@ def calculer_classement_general():
         nom_tournoi = tournoi.get('nomTournoi', 'N/A')
         date_ouverture = tournoi.get('dateOuverture', 'N/A')
         date_fermeture = tournoi.get('dateFermeture', 'N/A')
-        
+
         # Récupérer le vainqueur et le score du dernier match du tournoi
         dernier_match = tournoi.get('matchs', [])[-1] if tournoi.get('matchs') else {}
         vainqueur = dernier_match.get('vainqueur', 'N/A')
         score = dernier_match.get('score', {})
-        
+
         # Vérifier si c'est un match nul ou non
         if vainqueur == 'match_nul':
             vainqueur = 'Match nul'

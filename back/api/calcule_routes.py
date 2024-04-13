@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-import services.algorithmes.nombre_participants.mele_general as mg
+import back.services.algorithmes.nombre_participants.mele_general as mg
 
 calcule_bp = Blueprint('calcule', __name__)
 

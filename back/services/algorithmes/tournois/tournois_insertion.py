@@ -1,6 +1,6 @@
-from services.connexion.DatabaseService import DatabaseService
-from services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
-from services.algorithmes.joueur import joueur_match
+from back.services.connexion.DatabaseService import DatabaseService
+from back.services.algorithmes.joueur.joueur_verif import joueur_deja_inscrit, joueur_existe
+from back.services.algorithmes.joueur import joueur_match
 
 
 def insertion_tournoi(id: str, nb_table: int, nom_tournoi: str, type: str, nature: str, place_disponible: int, statut: bool, date_ouverture: str, date_fermeture: str):
