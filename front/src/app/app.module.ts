@@ -37,6 +37,7 @@ registerLocaleData(localeFr);
     DonneesPersonnellesComponent,
     TournoiComponent,
     AjoutTournoiComponent,
+      ClassementComponent
   ],
   imports: [
     CommonModule,

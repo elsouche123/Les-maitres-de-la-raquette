@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 
 from back.services.algorithmes.joueur import joueur_recherche
 from back.services.algorithmes.joueur import joueur_modification
+from back.services.algorithmes.joueur import joueur_modification
 from back.services.algorithmes.joueur import joueur_insertion, joueur_classement
 from back.services.algorithmes.joueur.joueur_verif import joueur_existe
 

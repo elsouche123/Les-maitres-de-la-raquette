@@ -28,8 +28,8 @@ export class AjoutTournoiComponent {
    dateOuverture: null,
    dateFermeture: null,
    nbTableau: 1,
-   joueur: [],
-   match: []
+   joueurs: [],
+   matchs: []
  };
  dureeConvertie: string = '0 heures 0 minutes';
  messageSuccess: string = '';

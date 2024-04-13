@@ -1,28 +1,42 @@
-<div class="container mt-4">
-  <h2 class="mb-4">Classement</h2>
+<!-- ClassementComponent.html -->
+<div *ngIf="tournoisFermes.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>Nom du Tournoi</th>
+        <th>Type</th>
+        <th>Date d'Ouverture</th>
+        <th>Date de Fermeture</th>
+        <th>Vainqueur</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tournoi of tournoisFermes">
+        <td>{{ tournoi.nomTournoi }}</td>
+        <td>{{ tournoi.type }}</td>
+        <td>{{ tournoi.dateOuverture | date: 'dd MMMM yyyy' }}</td>
+        <td>{{ tournoi.dateFermeture | date: 'dd MMMM yyyy' }}</td>
+        <td>{{ getVainqueur(tournoi) }}</td>
+        <td>
+          <button (click)="afficherMatchsTournoi(tournoi)">Voir Matchs</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <div class="row">
-    <div class="col">
-      <div class="table-responsive">
-        <table class="table table-striped table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Position</th>
-              <th scope="col">Nom</th>
-              <th scope="col">Victoires</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let joueur of classement; let i = index">
-              <tr>
-                <td>{{ i + 1 }}</td>
-                <td><a [routerLink]="'/liste-joueur'">{{ joueur.Nom }}</a></td>
-                <td>{{ joueur.Victoires }}</td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<!-- Modal pour afficher les détails des matchs du tournoi sélectionné -->
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h3>Détails des Matchs pour {{ selectedTournoi?.nomTournoi }}</h3>
+    <ul>
+      <li *ngFor="let match of selectedTournoi?.matchs">
+        <p>Match entre {{ match.adversaire1?.prenom }} {{ match.adversaire1?.nom }} et {{ match.adversaire2?.prenom }} {{ match.adversaire2?.nom }}</p>
+        <p>Score: {{ match.score }}</p>
+        <p>Vainqueur: {{ match.vainqueur }}</p>
+      </li>
+    </ul>
   </div>
 </div>

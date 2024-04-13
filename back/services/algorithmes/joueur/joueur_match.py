@@ -1,6 +1,7 @@
 from back.services.algorithmes.tournois import tournois_modification
 from back.services.algorithmes.tournois import tournois_recherche
 from back.services.algorithmes.tournois import tournois_gestion_score
+
 def afficher_matchs_tournoi(tournoi):
     matchs = tournoi.get('matchs', [])
     if not matchs:
