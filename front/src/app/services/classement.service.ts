@@ -7,7 +7,7 @@ import { Tournoi } from '../models/tournoi.models';
   providedIn: 'root'
 })
 export class ClassementService {
- private protocole = "http";
+  private protocole = "http";
   private serveur = "localhost:5000";
   private api: string = "/api"
 
@@ -19,5 +19,4 @@ export class ClassementService {
     return this.http.get<Tournoi[]>(`${this.protocole}://${this.serveur}${this.api}/tournois/false`);
   }
 
-  // Ajoutez d'autres méthodes selon les besoins
 }

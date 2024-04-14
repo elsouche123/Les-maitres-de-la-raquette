@@ -25,13 +25,14 @@ export class TournoiComponent implements OnInit {
     this.getTournoisOuverts();
   }
 
+  // Récupère les tournois ouverts depuis le service TournoiService
   getTournoisOuverts(): void {
     this.tournoiService.getTournoisOuverts().subscribe((tournois: Tournoi[]) => {
       this.tournois = tournois.map(tournoi => ({ ...tournoi, dejaInscrit: false }));
-      console.log(tournois);
     });
   }
 
+  // Gère le changement d'état de l'inscription à un tournoi
   onChange(event: Event, idTournoi: string): void {
     if (event.target !== null && 'checked' in event.target) {
       const isChecked: boolean = (event.target as HTMLInputElement).checked;
@@ -42,7 +43,6 @@ export class TournoiComponent implements OnInit {
           prenom: this.prenomJoueur
         }).subscribe({
           next: (response) => {
-            console.log('Joueur ajouté avec succès', response);
             alert(JSON.stringify(response));
           },
           error: (error) => {
@@ -53,7 +53,6 @@ export class TournoiComponent implements OnInit {
         this.tournoiService.supprimerJoueurTournoi(idTournoi, this.numeroInscription)
           .subscribe({
             next: (response) => {
-              console.log('Joueur supprimé avec succès', response);
               alert(JSON.stringify(response));
             },
             error: (error) => {
@@ -64,10 +63,12 @@ export class TournoiComponent implements OnInit {
     }
   }
 
+  // Récupère les nouveaux tournois ouverts
   voirNouveauxTournois(): void {
     this.getTournoisOuverts();
   }
 
+  // Valide le numéro d'inscription d'un joueur
   validerNumeroInscription(): void {
     this.tournoiService.getJoueurByNumero(this.numeroInscription).subscribe(
       (data: any[]) => {
@@ -87,17 +88,19 @@ export class TournoiComponent implements OnInit {
     );
   }
 
+  // Redirige vers la page d'ajout de tournoi
   ouvrirPageAjoutTournois() {
     this.router.navigate(['/ajout-tournoi']);
   }
 
+  // Récupère les tournois inscrits par un joueur
   getTournoisJoueur(): void {
     this.tournoiService.getTournoisJoueur(this.numeroInscription).subscribe((tournois: Tournoi[]) => {
       this.tournois = tournois.map(tournoi => ({ ...tournoi, dejaInscrit: true })); // Toujours définir dejaInscrit sur true
-      console.log(tournois);
     });
   }
 
+  // Affiche les tournois inscrits par un joueur
   voirTournoisInscrits(): void {
     this.getTournoisJoueur();
   }

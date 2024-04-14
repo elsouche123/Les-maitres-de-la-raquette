@@ -1,53 +1,91 @@
+/* Style général du tableau */
 table {
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  font-family: Arial, sans-serif;
+  border-collapse: collapse; /* Éliminer l'espace entre les bordures */
+  font-family: 'Arial', sans-serif; /* Police plus nette */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Ombre subtile pour la profondeur */
+  margin-bottom: 20px; /* Espace sous le tableau */
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
+  border: 1px solid #ddd; /* Bordure légère */
+  padding: 12px 15px; /* Plus d'espace à l'intérieur des cellules */
+  text-align: left; /* Alignement du texte */
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #2C5367; /* Fond sombre pour les en-têtes */
+  color: white; /* Texte blanc pour un contraste élevé */
+  font-size: 16px; /* Texte un peu plus grand */
 }
 
 tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Alternance des couleurs de fond pour les lignes */
 }
 
+tr:hover {
+  background-color: #f1f1f1; /* Couleur de fond au survol */
+}
+
+/* Style des boutons dans le tableau */
+button {
+  background-color: #2C5367; /* Couleur principale */
+  color: #fff; /* Texte blanc */
+  border: none; /* Aucune bordure visible */
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px; /* Bords arrondis */
+  transition: background-color 0.3s; /* Animation au survol */
+}
+
+button:hover {
+  background-color: #92B9CD; /* Couleur de survol */
+  color: #2C5367; /* Texte change au survol */
+}
+
+/* Style de la fenêtre modale */
 .modal {
+  display: block; /* Toujours affichée quand activée */
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  width: 100%; /* Largeur totale */
+  height: 100%; /* Hauteur totale */
+  overflow: auto; /* Permettre le défilement si nécessaire */
+  background-color: rgba(0,0,0,0.4); /* Semi-transparent */
 }
 
 .modal-content {
+  width: 80%; /* Largeur ajustée pour la fenêtre modale */
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 15% auto; /* Centrage vertical */
   padding: 20px;
   border: 1px solid #888;
-  width: 50%; /* Ajustez la largeur de la modal selon vos besoins */
 }
 
 .close {
-  color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  color: #aaa;
   cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: black; /* Plus visible au survol */
   text-decoration: none;
+}
+
+/* Styles pour le tableau dans la fenêtre modale, intégrant les styles de table généraux */
+.modal-content table {
+  margin-top: 20px; /* Espace au-dessus du tableau dans la modal */
+}
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Autres styles spécifiques pour le pied de page fixe */
 }

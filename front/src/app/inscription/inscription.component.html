@@ -5,7 +5,7 @@
   <div class="alert alert-primary" role="alert">
     <div class="message-information">
         <i class="bi bi-info-circle bi-info-circle-custom" aria-hidden="true"></i>
-        Souhaitez-vous participer à notre tournoi de ping-pong ?<strong>&nbsp;Inscrivez-vous dès maintenant !</strong>
+        Souhaitez-vous participer à notre tournoi de ping-pong ? <strong>Inscrivez-vous dès maintenant !</strong>
     </div>
   </div>
 
@@ -81,10 +81,10 @@
             <!-- Code Postal, Ville, Pays - Ajout de 'mb-3' pour la marge en bas -->
             <div class="row g-3 mb-3">
               <div class="col-md-4">
-                <label for="codePostale" class="form-label fw-bold">Code Postal <span class="required-asterisk">*</span></label>
-                <input type="number" class="form-control" id="codePostale" name="codePostale" [(ngModel)]="inscriptionModel.codePostale"  #codePostale="ngModel" required placeholder="Code Postal">
-                <div *ngIf="codePostale.touched && codePostale.invalid" class="alert alert-danger">
-                  Le champ Code Postale est obligatoire.
+                <label for="codePostal" class="form-label fw-bold">Code Postal <span class="required-asterisk">*</span></label>
+                <input type="number" class="form-control" id="codePostal" name="codePostal" [(ngModel)]="inscriptionModel.codePostale"  #codePostal="ngModel" required placeholder="Code Postal">
+                <div *ngIf="codePostal.touched && codePostal.invalid" class="alert alert-danger">
+                  Le champ Code Postal est obligatoire.
                 </div>
               </div>
 
@@ -105,7 +105,7 @@
                     [(ngModel)]="inscriptionModel.pays"
                     [typeahead]="filtrePays"
                     name="pays"
-                    #pays="ngModel"required>
+                    #pays="ngModel" required>
                 </ng-select>
                 <div *ngIf="pays.touched && pays.invalid" class="alert alert-danger">
                   Le champ Pays est obligatoire.
@@ -127,7 +127,7 @@
               <label for="telephone" class="form-label fw-bold">Téléphone <span class="required-asterisk">*</span></label>
               <input type="tel" class="form-control" id="telephone" name="telephone" [(ngModel)]="inscriptionModel.telephone"  #telephone="ngModel" required placeholder="Votre téléphone" pattern="[0-9]{10}">
               <div *ngIf="telephone.touched && telephone.invalid" class="alert alert-danger">
-                Le champ  est obligatoire.
+                Le champ Téléphone est obligatoire.
               </div>
             </div>
           </div>
@@ -173,16 +173,11 @@
 
     </form>
         <div class="alert alert-success" *ngIf="numInscriptionGenerer">
-            Votre pré-inscription a été validé. Votre numéro de pre-inscription est : <strong>{{ numInscriptionGenerer }}</strong><br>
+            Votre pré-inscription a été validée. Votre numéro de pré-inscription est : <strong>{{ numInscriptionGenerer }}</strong><br>
             <br><i class="bi bi-exclamation-triangle bi-exclamation-triangle-custom"></i> Ce numéro vous sera demandé pour l'inscription à un tournoi.
         </div>
         <div class="alert alert-warning" *ngIf="numInscriptionGenererErreur">
             <i class="bi bi-exclamation-triangle bi-exclamation-triangle-custom"></i> Votre demande n'a pas été prise en compte.
         </div>
-
-
-
-
-
   </div>
 </div>

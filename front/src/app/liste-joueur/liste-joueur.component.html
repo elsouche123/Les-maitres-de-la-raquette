@@ -3,24 +3,28 @@
   <h1 class="h1-custom texte-couleur-custom">Les Joueurs</h1>
   <br>
 
+  <!-- Alert pour informations -->
   <div class="alert alert-primary" role="alert">
     <div class="message-information">
       <i class="bi bi-info-circle bi-info-circle-custom"></i>
-      Liste de l'ensemble des Joueurs inscrits au tournoi de Ping Pong.
+      Liste de l'ensemble des joueurs inscrits au tournoi de Ping-Pong.
     </div>
   </div>
 
+  <!-- Filtres de recherche -->
   <div class="row align-items-center mb-4">
-    <div class="col-lg-4 mb-3 mb-lg-0">
+    <!-- Champ de recherche par nom -->
+    <fieldset class="col-lg-4 mb-3 mb-lg-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Rechercher un joueur par nom..." [(ngModel)]="searchTerm" (keyup)="filterJoueurs()">
         <button class="btn btn-custom" type="button" (click)="filterJoueurs()">
           <i class="bi bi-search"></i>
         </button>
       </div>
-    </div>
+    </fieldset>
 
-    <div class="col-lg-4">
+    <!-- Filtre par pays et genre -->
+    <fieldset class="col-lg-4">
       <div class="row">
         <div class="col-sm-6 mb-2 mb-sm-0">
           <select class="form-select" [(ngModel)]="selectedPays" (change)="filterJoueurs()">
@@ -38,9 +42,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </fieldset>
 
-    <div class="col-lg-4">
+    <!-- Filtre par licence -->
+    <fieldset class="col-lg-4">
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="switchLicence" [(ngModel)]="switchStateLicence" (change)="updateLicence(switchStateLicence)">
         <label class="form-check-label" for="switchLicence">
@@ -48,9 +53,10 @@
           <i *ngIf="!switchStateLicence" class="bi bi-trophy fs-3"></i>
         </label>
       </div>
-    </div>
+    </fieldset>
   </div>
 
+  <!-- Affichage des joueurs -->
   <div class="row">
     <div *ngFor="let joueur of filteredJoueurs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="col-lg-3 col-md-4 col-sm-6">
       <div class="card mb-4">
@@ -69,11 +75,17 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col text-center">
-      <button class="btn btn-custom me-2" (click)="onPrevPage()" [disabled]="currentPage === 1">Précédent</button>
-      <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-      <button class="btn btn-custom ms-2" (click)="onNextPage()" [disabled]="currentPage === totalPages">Suivant</button>
-    </div>
+  <!-- Pagination -->
+  <div class="paginator">
+    <span>Nombre</span>
+    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange(itemsPerPage)">
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="15">15</option>
+    </select>
+
+    <span>{{ startItemIndex }} - {{ endItemIndex }} sur {{ totalItems }}</span>
+    <button (click)="onPrevPage()" [disabled]="currentPage === 1">Préc</button>
+    <button (click)="onNextPage()" [disabled]="currentPage === totalPages">Suiv</button>
   </div>
 </div>

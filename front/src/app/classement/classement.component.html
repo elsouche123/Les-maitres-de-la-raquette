@@ -1,42 +1,69 @@
-<!-- ClassementComponent.html -->
-<div *ngIf="tournoisFermes.length > 0">
-  <table>
-    <thead>
-      <tr>
-        <th>Nom du Tournoi</th>
-        <th>Type</th>
-        <th>Date d'Ouverture</th>
-        <th>Date de Fermeture</th>
-        <th>Vainqueur</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tournoi of tournoisFermes">
-        <td>{{ tournoi.nomTournoi }}</td>
-        <td>{{ tournoi.type }}</td>
-        <td>{{ tournoi.dateOuverture | date: 'dd MMMM yyyy' }}</td>
-        <td>{{ tournoi.dateFermeture | date: 'dd MMMM yyyy' }}</td>
-        <td>{{ getVainqueur(tournoi) }}</td>
-        <td>
-          <button (click)="afficherMatchsTournoi(tournoi)">Voir Matchs</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="container">
+  <br>
+  <!-- Titre de la page -->
+  <h1 class="h1-custom texte-couleur-custom">Classement des Tournois</h1>
+  <br>
 
-<!-- Modal pour afficher les détails des matchs du tournoi sélectionné -->
-<div *ngIf="showModal" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="closeModal()">&times;</span>
-    <h3>Détails des Matchs pour {{ selectedTournoi?.nomTournoi }}</h3>
-    <ul>
-      <li *ngFor="let match of selectedTournoi?.matchs">
-        <p>Match entre {{ match.adversaire1?.prenom }} {{ match.adversaire1?.nom }} et {{ match.adversaire2?.prenom }} {{ match.adversaire2?.nom }}</p>
-        <p>Score: {{ match.score }}</p>
-        <p>Vainqueur: {{ match.vainqueur }}</p>
-      </li>
-    </ul>
+  <!-- Message d'information -->
+  <div class="alert alert-primary" role="alert">
+    <div class="message-information">
+      <i class="bi bi-info-circle bi-info-circle-custom"></i>
+      Consultez le classement actuel et découvrez les résultats des tournois récents.
+    </div>
+  </div>
+
+  <!-- Tableau de classement des tournois fermés -->
+  <div *ngIf="tournoisFermes.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom du Tournoi</th>
+          <th>Type</th>
+          <th>Date d'Ouverture</th>
+          <th>Date de Fermeture</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tournoi of tournoisFermes">
+          <td>{{ tournoi.nomTournoi }}</td>
+          <td>{{ tournoi.type }}</td>
+          <td>{{ tournoi.dateOuverture | date: 'dd MMMM yyyy' }}</td>
+          <td>{{ tournoi.dateFermeture | date: 'dd MMMM yyyy' }}</td>
+          <td>
+            <button (click)="afficherMatchsTournoi(tournoi)">Voir Matchs</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Fenêtre modale pour afficher les détails des matchs -->
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>Détails des Matchs</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Adversaire 1</th>
+            <th>Adversaire 2</th>
+            <th>Score Adversaire 1</th>
+            <th>Score Adversaire 2</th>
+            <th>Vainqueur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Affichage des détails des matchs -->
+          <tr *ngFor="let match of selectedMatches">
+            <td>{{ match.match.adversaire1.nom }} {{ match.match.adversaire1.prenom }}</td>
+            <td>{{ match.match.adversaire2.nom }} {{ match.match.adversaire2.prenom }}</td>
+            <td>{{ match.match.score.adversaire1 }}</td>
+            <td>{{ match.match.score.adversaire2 }}</td>
+            <td>{{ match.vainqueur }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

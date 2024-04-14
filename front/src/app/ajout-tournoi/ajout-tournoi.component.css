@@ -1,11 +1,10 @@
+/* Styles pour les boutons de soumission, incluant la taille, couleur, et interactions de survol */
 .btn-submit {
   padding: 10px 20px;
   border-radius: 5px;
-  border: none;
   background-color: #2C5367;
   color: white;
   cursor: pointer;
-  outline: none;
   transition: background-color 0.3s;
   margin-bottom: 2rem;
 }
@@ -14,7 +13,7 @@
   background-color: #1B3B4F;
 }
 
+/* Style pour les astérisques indiquant les champs obligatoires dans les formulaires */
 .required-asterisk {
   color: rgb(110, 9, 9);
 }
-

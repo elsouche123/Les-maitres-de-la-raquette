@@ -7,11 +7,12 @@ export interface Joueur {
 }
 
 export interface Match {
-  adversaire1: Joueur;
-  adversaire2: Joueur;
-  nom: string;        // Nom du match, si applicable
-  vainqueur: string;  // Nom du vainqueur du match
-  score: string;      // Le score du match
+  match: {
+    adversaire1: { nom: string; prenom: string };
+    adversaire2: { nom: string; prenom: string };
+    score: { adversaire1: number; adversaire2: number };
+  };
+  vainqueur: string;
 }
 
 export interface Tournoi {
@@ -27,4 +28,3 @@ export interface Tournoi {
   joueurs: Joueur[];
   matchs: Match[];
 }
-

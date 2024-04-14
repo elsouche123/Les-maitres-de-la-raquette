@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ClassementService } from '../services/classement.service';
 import { Tournoi, Match } from '../models/tournoi.models';
 
+interface EnrichedMatch extends Match {
+  description?: string;  // Description du match pour faciliter l'affichage
+}
+
 @Component({
   selector: 'app-classement',
   templateUrl: './classement.component.html',
@@ -9,67 +13,51 @@ import { Tournoi, Match } from '../models/tournoi.models';
 })
 export class ClassementComponent implements OnInit {
   tournoisFermes: Tournoi[] = [];
-  selectedTournoi: Tournoi | null = null;  // Ajoutez cette ligne pour gérer le tournoi sélectionné
-  showModal: boolean = false;
-  selectedMatches: Match[] = []; // Stocke les matchs du tournoi sélectionné
+  selectedTournoi: Tournoi | null = null;
+  selectedMatches: EnrichedMatch[] = []; // Utilisation du type EnrichedMatch
+  showModal = false;
 
   constructor(private classementService: ClassementService) {}
 
   ngOnInit() {
-    this.getTournoisFermes();
+    this.getTournoisFermesFromDB();
   }
 
-  afficherMatchsTournoi(tournoi: Tournoi) {
-  if (!tournoi.matchs || tournoi.matchs.length === 0) {
-    alert("Aucun match trouvé pour ce tournoi.");
-    return;
-  }
-
-  let message = "Voici les matchs du tournoi :\n";
-  for (let match of tournoi.matchs) {
-    if (!match.adversaire1 || !match.adversaire2) {
-      console.error('Un des joueurs est undefined', match);
-      continue;  // Passe au prochain match si un des joueurs est undefined
-    }
-
-    let joueur1 = `${match.adversaire1?.nom} ${match.adversaire1?.prenom}`;
-    let joueur2 = `${match.adversaire2?.nom} ${match.adversaire2?.prenom}`;
-    message += `Match : ${joueur1} contre ${joueur2}\n`;
-  }
-
-  alert(message);
-}
-
-  getTournoisFermes() {
-    this.classementService.getTournoisFermes().subscribe(
-      (tournois: Tournoi[]) => {
+  // Récupérer les tournois fermés depuis la base de données
+  getTournoisFermesFromDB(): void {
+    this.classementService.getTournoisFermes().subscribe({
+      next: (tournois: Tournoi[]) => {
         this.tournoisFermes = tournois;
       },
-      (error) => {
-        console.error('Erreur lors de la récupération des tournois fermés:', error);
+      error: (error) => {
+        console.error('Erreur lors de la récupération des tournois fermés depuis la base de données:', error);
       }
-    );
+    });
   }
 
-  getVainqueur(tournoi: Tournoi): string {
-  if (tournoi && tournoi.matchs && tournoi.matchs.length > 0) {
-    const dernierMatch = tournoi.matchs[tournoi.matchs.length - 1];
-    if (dernierMatch.vainqueur) {
-      return dernierMatch.vainqueur;
-    } else {
-      return 'Match non joué';
+  // Afficher les matchs d'un tournoi sélectionné
+  afficherMatchsTournoi(tournoi: Tournoi): void {
+    if (!tournoi.matchs || tournoi.matchs.length === 0) {
+      // Aucun match trouvé pour ce tournoi.
+      return;
     }
-  } else {
-    return 'Aucun match trouvé';
+
+    // Copier les matchs du tournoi pour l'affichage
+    this.selectedMatches = tournoi.matchs.map(match => ({ ...match }));
+
+    // Activer l'affichage de la modal
+    this.showModal = true;
   }
-}
 
+  // Ouvrir la modal avec les détails d'un tournoi
   openModal(tournoi: Tournoi) {
-  this.selectedTournoi = tournoi; // Assurez-vous que selectedTournoi est utilisé pour stocker les matchs
-  this.showModal = true; // Variable pour contrôler l'affichage de la modal
-}
+    this.selectedTournoi = tournoi;
+    this.selectedMatches = tournoi.matchs;
+    this.showModal = true;
+  }
 
-closeModal() {
-  this.showModal = false;
-}
+  // Fermer la modal
+  closeModal() {
+    this.showModal = false;
+  }
 }
